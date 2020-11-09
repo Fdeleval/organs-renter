@@ -1,0 +1,44 @@
+
+
+.column  {
+  display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+
+.footer-section{
+  display: flex;
+  justify-content: space-evenly;
+  flex-grow: 1;
+  background-color: #2c2b2b;
+  height: 200px;
+  width: 100%;
+  padding: 40px;
+  font-color: blue;
+
+}
+
+.horizontal li {
+   display: inline;
+   text-align: center;
+   padding: 2px ;
+   margin: 0;
+   width: 19%;
+   }
+
+  .itemize li {
+   // display: inline;
+   // text-align: center;
+   // padding: 2px ;
+   // margin: 0;
+   // width: 19%;
+   // color: blue;
+  }
+
+  .list-inline {
+      list-style: none;
+      padding-left: 0px;
+  }

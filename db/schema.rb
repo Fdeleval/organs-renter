@@ -39,8 +39,6 @@ ActiveRecord::Schema.define(version: 2020_11_09_135018) do
     t.integer "rating"
     t.index ["bookings_id"], name: "index_reviews_on_bookings_id"
   end
-
-  create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

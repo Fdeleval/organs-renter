@@ -21,8 +21,11 @@
     <div class="container">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
-      <%= yield %>  
+      <%= yield %>
     </div>
+
+    <!-- Import the footbar file in all the file -->
+    <%= render '/layouts/footer'%>
 
   </body>
 </html>

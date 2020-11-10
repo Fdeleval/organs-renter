@@ -2,7 +2,6 @@ class OrgansController < ApplicationController
 
   def index
     @organs = Organ.all
-    @user = user
   end
 
   def show

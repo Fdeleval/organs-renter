@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get  '/home/organs', to: "organs#index"
   get  '/home/show/', to: "organs#show"
   patch  '/home/show/edit', to: "organs#update"
-  get '/home/show/new', to: "organs#new"
+  get '/home/show/new', to: "organs#new", as: :new
   post '/home/show/create', to: "organs#create"
-  get  '/home/show/:id', to: "organs#edit"
+  get  '/home/show/:id', to: "organs#edit", as: :edit
 end

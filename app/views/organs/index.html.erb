@@ -4,7 +4,7 @@
 <h1>List of all the organs</h1>
 
   <ul> <% @organs.each do |organ| %>
-    <li>User email: <%= organ.user.email  %> </li>
+    <li>User email: <%= @user.email  %> </li>
     <ul>
       <li> Organ's type: <%= organ.organ_type   %> </li>
       <li>Description: <%= organ.description  %> </li>

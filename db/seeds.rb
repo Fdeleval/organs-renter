@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+organ.create!({type: "Lung", description: "Very good condition", user: 1, available: true, price: 4})
+organ.create!({type: "heart", description: "bad good condition", user: 1, available: true, price: 4})
+organ.create!({type: "Brain", description: "good condition", user: 2, available: false, price: 4})
+organ.create!({type: "Lung", description: "Very bad condition", user: 3, available: false, price: 4})
+organ.create!({type: "Lung", description: "Very good condition", user: 4, available: true, price: 4})
+organ.create!({type: "Brain", description: "good condition", user: 4, available: true, price: 4})

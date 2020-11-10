@@ -1,17 +1,7 @@
 <h1>Hello I'am the homepage</h1>
 
-<head>
-
-
-
-</head>
-
-<body>
-
-  How are you?
 <% if user_signed_in? && current_user.photo.attached? %>
   <%= cl_image_tag current_user.photo.key, height: 300, width: 400, crop: :fill %>
 <% end %>
-</body>
 
 

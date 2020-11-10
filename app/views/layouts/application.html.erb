@@ -15,17 +15,19 @@
   </head>
 
   <body>
+   <!-- the wrapper is to put the footer bottom page, even if there is no content -->
+    <div id="wrapper">
 
-    <%= render '/layouts/navbar'%>
+      <%= render '/layouts/navbar'%>
 
-    <div class="container">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-      <%= yield %>
+      <div class="container">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+        <%= yield %>
+      </div>
+
+      <!-- Import the footbar file in all the file -->
+      <%= render '/layouts/footer'%>
     </div>
-
-    <!-- Import the footbar file in all the file -->
-    <%= render '/layouts/footer'%>
-
   </body>
 </html>

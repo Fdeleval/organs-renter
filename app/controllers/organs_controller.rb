@@ -6,8 +6,8 @@ class OrgansController < ApplicationController
   end
 
   def show
-
     @organs = Organ.where(user_id: current_user.id)
+    @user = current_user
   end
 
   def edit

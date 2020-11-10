@@ -1,0 +1,15 @@
+
+
+<h1>Organs for <%= @organs.first.user.email %>:</h1>
+
+  <ul>
+    <% @organs.each do |organ|  %>
+      <li>Organ kind: <%= organ.organ_type %></li>
+        <ul>
+          <li>Description: <%= organ.description %></li>
+          <li>Renting price: <%= organ.price %></li>
+        </ul>
+    <%end%>
+
+  </ul>
+

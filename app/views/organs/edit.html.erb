@@ -1,6 +1,6 @@
 <h1>This is the organ edit page</h1>
-<%= simple_form_for @organ do |f| %>
-  <%= f.input :description%>
-  <%= f.input :price %>
-  <%= f.button :available%>
+<%= simple_form_for @organ, url='/home/show' do |f| %>
+  <%= f.input :description input_html: {value: @organ.description}%>
+  <%= f.input :price {value: @organ.price} %>
+  <%= f.button :available {value: @organ.available}%>
 <% end %>

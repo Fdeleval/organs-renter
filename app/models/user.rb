@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :organs
   has_many :bookings
 
-  validates :donor, acceptance: { accept: [0, 1] }
-  validates :smoker, acceptance: { accept: [0, 1] }
-  validates :drinker, acceptance: { accept: [0, 1] }
+  # validates :donor, acceptance: { accept: [0, 1] }
+  # validates :smoker, acceptance: { accept: [0, 1] }
+  # validates :drinker, acceptance: { accept: [0, 1] }
 end

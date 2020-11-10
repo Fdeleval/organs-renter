@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2020_11_09_135018) do
     t.string "organ_type", null: false
     t.text "description", null: false
     t.bigint "user_id", null: false
-    t.boolean "available", null: false
+    t.integer "available", null: false
     t.integer "price", null: false
     t.index ["user_id"], name: "index_organs_on_user_id"
   end
@@ -48,9 +48,9 @@ ActiveRecord::Schema.define(version: 2020_11_09_135018) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "smoker", default: false
-    t.boolean "drinker", default: false
-    t.boolean "donor", default: false
+    t.integer "smoker", default: 0
+    t.integer "drinker", default: 0
+    t.integer "donor", default: 0
     t.text "description"
     t.string "address"
     t.index ["email"], name: "index_users_on_email", unique: true

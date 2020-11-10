@@ -12,4 +12,8 @@
 @import "components/index";
 @import "pages/index";
 
-
+#wrapper {
+  min-height: 100vh; 
+  position: relative;
+  padding-bottom: 250px;
+}

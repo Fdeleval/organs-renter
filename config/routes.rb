@@ -8,4 +8,7 @@ Rails.application.routes.draw do
   get '/home/show/new', to: "organs#new", as: :new
   post '/home/show/create', to: "organs#create"
   get  '/home/show/:id', to: "organs#edit", as: :edit
+   get  '/home/booking/', to: "bookings#show"
+  get  '/home', to: "pages#home"
+
 end

@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 2020_11_09_135018) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "smoker", default: 0
+    t.integer "smoker", default: 0 # This is not boolean because the checkboxes of the sign up form return 0 or 1 and not true or false
     t.integer "drinker", default: 0
     t.integer "donor", default: 0
     t.text "description"

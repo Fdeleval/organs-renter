@@ -22,8 +22,7 @@ body {
 
 // display the content of the foot bar in blocks
 .footer-section{
-  position: fixed;
-  left: 0;
+  position: absolute;
   bottom: 0;
   width: 100%;
   display: flex;
@@ -31,7 +30,6 @@ body {
   flex-grow: 1;
   background-color: #2c2b2b;
   color: white;
-  height: 150px;
 }
 
 // remove the items of the list
@@ -39,3 +37,10 @@ body {
       list-style: none;
       padding-left: 0px;
   }
+
+// places the footer bottom page, even if there's no content in the page
+#wrapper {
+    min-height: 100vh; 
+    position: relative;
+    padding-bottom: 250px;
+}

@@ -1,0 +1,10 @@
+<h1>This is the organ edit page</h1>
+
+<%= simple_form_for @organ, {url: '/home/show/create'} do |f| %>
+  <%= f.input :organ_type %>
+  <%= f.input :description %>
+  <%= f.input :price %>
+  <%= f.input :available %>
+  <%= f.hidden_field :user_id %>
+  <%= f.button :submit %>
+<% end %>

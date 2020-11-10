@@ -6,6 +6,13 @@ class User < ApplicationRecord
 
   has_many :organs
   has_many :bookings
+<<<<<<< HEAD
   # validates :smoker, presence: true
   # validates :drinker, presence: true
+=======
+
+  validates :donor, acceptance: { accept: [0, 1] }
+  validates :smoker, acceptance: { accept: [0, 1] }
+  validates :drinker, acceptance: { accept: [0, 1] }
+>>>>>>> master
 end

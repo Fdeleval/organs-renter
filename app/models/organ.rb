@@ -6,5 +6,5 @@ class Organ < ApplicationRecord
   validates :organ_type, acceptance: { accept: ["heart", "brain", "lungs"] }
   validates :organ_type, presence: true
 
-  validates :available, acceptance: { accept: [0, 1] }
+  # validates :available, acceptance: { accept: [0, 1] }
 end

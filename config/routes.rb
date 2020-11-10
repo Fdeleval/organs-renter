@@ -4,4 +4,7 @@ Rails.application.routes.draw do
   get '/',to: "pages#home"
   get  '/home/organs', to: "organs#index"
   get  '/home/show/', to: "organs#show"
+  get  '/home/booking/', to: "bookings#show"
+
+  get  '/home', to: "pages#home"
 end

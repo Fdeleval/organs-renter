@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_09_162453) do
+ActiveRecord::Schema.define(version: 2020_11_09_135018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,10 +25,10 @@ ActiveRecord::Schema.define(version: 2020_11_09_162453) do
   end
 
   create_table "organs", force: :cascade do |t|
-    t.string "type", null: false
+    t.string "organ_type", null: false
     t.text "description", null: false
     t.bigint "user_id", null: false
-    t.boolean "available", null: false
+    t.integer "available", null: false
     t.integer "price", null: false
     t.index ["user_id"], name: "index_organs_on_user_id"
   end
@@ -48,9 +48,9 @@ ActiveRecord::Schema.define(version: 2020_11_09_162453) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "smoker"
-    t.boolean "drinker"
-    t.boolean "donor", default: false
+    t.integer "smoker", default: 0 # This is not boolean because the checkboxes of the sign up form return 0 or 1 and not true or false
+    t.integer "drinker", default: 0
+    t.integer "donor", default: 0
     t.text "description"
     t.string "address"
     t.index ["email"], name: "index_users_on_email", unique: true

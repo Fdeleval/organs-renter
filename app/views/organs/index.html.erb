@@ -8,11 +8,98 @@
     <ul>
       <li> Organ's type: <%= organ.organ_type   %> </li>
       <li>Description: <%= organ.description  %> </li>
-      <li> <%= organ.available == "1" ? "Available" : "Not avaiblabe for the moment"
-
-            %> </li>
+      <li class="available"> <%= organ.available == true ? "Available" : "Not avaiblabe for the moment" %> </li>
       <li>Renting price:<%= organ.price   %>€  </li>
     </ul>
+    <div id="avcal<%=organ.id%>"></div>
+    <% bookings = [] %>
+    <% organ.booking.each do |b| %>
+      <% bookings.push([[b.date_start.year, b.date_start.month, b.date_start.day],[b.date_end.year, b.date_end.month, b.date_end.day]]) %>
+    <% end %>
+    <input type = "button" onclick = "hello(<%= bookings%>, <%= organ.id%>)" value = "Show calendar"> 
 <% end %></ul>
 <%= link_to "My organs", show_path %>
-<h2>End of list</h2>
+<h2>End of list</h2> 
+
+<script>
+const months = [
+    ['January', 31],
+    ['February', 28],
+    ['March', 31],
+    ['April', 30],
+    ['May', 31],
+    ['June', 30],
+    ['July', 31],
+    ['August', 31],
+    ['September', 30],
+    ['October', 31],
+    ['November', 30],
+    ['December', 31]
+  ];
+function hello(a, id){
+  // a[x][0] is the date start array: year, month, day
+  // a[x][1] is the date end array: year, month, day
+  let bookings = [];
+  a.forEach((item) => {
+    const start = new Date(`${item[0][0]},${item[0][1]},${item[0][2]}`)
+    const end = new Date(`${item[1][0]},${item[1][1]},${item[1][2]}`)
+    bookings.push([start, end])
+  });
+
+  avcal = document.getElementById(`avcal${id}`)
+  if (avcal.className == 'active'){
+    avcal.innerHTML = ''
+    avcal.className = 'inactive'
+  } else {
+    calendar(avcal, id, bookings)
+  }
+
+  // avcal.style.display = 'none'
+}
+
+function calendar(avcal, id, bookings){
+  avcal.className = 'active'
+  const today = new Date();
+  const month = months[today.getMonth()]
+  const top = `
+  <div class="month">
+    <ul>
+      <li class="prev">&#10094;</li>
+      <li class="next">&#10095;</li>
+      <li>${months[today.getMonth()][0]}<br><span style="font-size:18px">2020</span></li>
+    </ul>
+  </div>
+  <ul class="weekdays">
+    <li>Mo</li>
+    <li>Tu</li>
+    <li>We</li>
+    <li>Th</li>
+    <li>Fr</li>
+    <li>Sa</li>
+    <li>Su</li>
+  </ul>
+  <ul class="days" id="days${id}">`
+  // const days =  document.getElementById(`days${id}`)
+  avcal.insertAdjacentHTML('beforeend', top)
+  for (let i = 1; i <= month[1]; i++) {
+    const date = new Date(`2020, ${month[0]}, ${i}`)
+    let day = `<li>${i}</li>`;
+    let booked = false
+    bookings.forEach((booking) => {
+      if(date <= booking[1] && date >= booking[0]){
+        booked =  true
+      } 
+    });
+    if (booked){
+      day = `<li><span class="active">${i}</span></li>`
+    }    
+    document.getElementById(`days${id}`).insertAdjacentHTML('beforeend', day)
+  }
+}
+
+// function isBooked(bookings, date){
+  
+// }
+</script>
+
+

@@ -6,7 +6,4 @@ class User < ApplicationRecord
 
   has_many :organs
   has_many :bookings
-  validates :smoker, presence: true
-  validates :drinker, presence: true
-  validates :donor, presence: true
 end

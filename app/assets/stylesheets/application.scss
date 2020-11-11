@@ -7,14 +7,9 @@
 @import "bootstrap/scss/bootstrap";
 @import "font-awesome-sprockets";
 @import "font-awesome";
+@import 'mapbox-gl/dist/mapbox-gl';
 
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
 @import "components/calendar";
-
-#wrapper {
-  min-height: 100vh; 
-  position: relative;
-  padding-bottom: 250px;
-}

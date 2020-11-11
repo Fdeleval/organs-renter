@@ -18,4 +18,8 @@ require("channels")
 
 import 'bootstrap';
 
-console.log("Hello from app/javascript/packs/application.js!");
+import { initMapbox } from '../plugins/init_mapbox';
+
+document.addEventListener('turbolinks:load', () => {
+  initMapbox();
+})

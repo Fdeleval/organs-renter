@@ -1,4 +1,5 @@
 class OrgansController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
 
   def index
     @organs = Organ.all
@@ -30,7 +31,7 @@ class OrgansController < ApplicationController
   end
 
   def new
-    @organ = Organ.new({user_id: current_user.id})
+    @organ = Organ.new({ user_id: current_user.id })
   end
 
   def create
@@ -43,5 +44,4 @@ class OrgansController < ApplicationController
   def organ_params
     params.require(:organ).permit(:description, :price, :available, :submit, :organ_type, :user_id)
   end
-
 end

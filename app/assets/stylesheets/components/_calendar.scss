@@ -1,7 +1,7 @@
 /* Month header */
 .month {
   padding: 25px 25px;
-  width: 30%;
+  width: 100%;
   background: #1abc9c;
   text-align: center;
 }
@@ -9,6 +9,7 @@
 /* Month list */
 .month ul {
   margin: 0;
+  list-style-type: none;
   padding: 0;
 }
 
@@ -21,19 +22,25 @@
 
 /* Previous button inside month header */
 .month .prev {
+  box-shadow: none;
+  border: none;
+  background-color: grey;
   float: left;
   padding-top: 10px;
 }
 
 /* Next button */
 .month .next {
+  box-shadow: none;
+  border: none;
+  background-color: grey;
   float: right;
   padding-top: 10px;
 }
 
 /* Weekdays (Mon-Sun) */
 .weekdays {
-  width: 30%;
+  width: 100%;
   margin: 0;
   padding: 10px 0;
   background-color:#ddd;
@@ -49,7 +56,7 @@
 
 /* Days (1-31) */
 .days {
-  width: 30%;
+  width: 100%;
   padding: 10px 0;
   background: #eee;
   margin: 0;
@@ -70,4 +77,8 @@
   padding: 5px;
   background: darkred;
   color: white !important
+}
+
+.calbox {
+  width: 30%;
 }

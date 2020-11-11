@@ -11,12 +11,12 @@
       <li class="available"> <%= organ.available == true ? "Available" : "Not avaiblabe for the moment" %> </li>
       <li>Renting price:<%= organ.price   %>€  </li>
     </ul>
-    <div id="avcal<%=organ.id%>"></div>
-    <% bookings = [] %>
-    <% organ.booking.each do |b| %>
-      <% bookings.push([[b.date_start.year, b.date_start.month, b.date_start.day],[b.date_end.year, b.date_end.month, b.date_end.day]]) %>
-    <% end %>
-    <input type = "button" onclick = "hello(<%= bookings%>, <%= organ.id%>)" value = "Show calendar"> 
+    <div id="avcal<%=organ.id%>" class="calbox"></div>
+          <% bookings = [] %>
+          <% organ.booking.each do |b| %>
+            <% bookings.push([[b.date_start.year, b.date_start.month, b.date_start.day],[b.date_end.year, b.date_end.month, b.date_end.day]]) %>
+          <% end %>
+          <input type = "button" onclick = "hello(<%= bookings%>, <%= organ.id%>)" value = "Show calendar"> 
 <% end %></ul>
 <%= link_to "My organs", show_path %>
 <h2>End of list</h2> 
@@ -47,25 +47,23 @@ function hello(a, id){
   });
 
   avcal = document.getElementById(`avcal${id}`)
-  if (avcal.className == 'active'){
-    avcal.innerHTML = ''
-    avcal.className = 'inactive'
+  if (avcal.classList.contains('active')){
+    avcal.innerHTML = ""
+    avcal.classList.remove('active')
   } else {
     calendar(avcal, id, bookings)
   }
-
-  // avcal.style.display = 'none'
 }
 
 function calendar(avcal, id, bookings){
-  avcal.className = 'active'
+  avcal.classList.add('active')
   const today = new Date();
   const month = months[today.getMonth()]
   const top = `
   <div class="month">
     <ul>
-      <li class="prev">&#10094;</li>
-      <li class="next">&#10095;</li>
+      <input type="button" class="prev" value="&#10094">
+      <input type="button" class="next" value="&#10095">
       <li>${months[today.getMonth()][0]}<br><span style="font-size:18px">2020</span></li>
     </ul>
   </div>

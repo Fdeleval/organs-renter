@@ -1,7 +1,15 @@
+<!-- displya onlmy name from email: https://stackoverflow.com/questions/957422/rails-actionmailer-format-sender-and-recipient-name-email-address -->
+
+<h1> Booking for the current user: <%= @email_name%></h1>
+
+  <ul><% @bookings.each do |booking| %>
+    <li>Congrats! You have order following item: <%= booking.organ.organ_type %> </li>
+      <ul>
+        <li>It has been booked as from <%= booking.date_start.strftime("%Y-%m-%d") %> to the <%= booking.date_end.strftime("%Y-%m-%d") %></li>
+        <li>Our Renter's name is <%=booking.organ.user.email %>. The renter will be hapy to share the organ with you!</li>
+        <br>
+      </ul>
+  <% end %></ul>
 
 
-<h1> Bookng for the current user: xxxx</h1>
-<ul><%@bookings.each do |booking| %>
-  <li><%= booking.organ_id %></li>
-</ul>
-<% end %>
+

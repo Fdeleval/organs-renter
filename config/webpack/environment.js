@@ -10,4 +10,7 @@ environment.plugins.prepend('Provide',
   })
 )
 
+// fixing the map issue didn't display
+environment.loaders.delete('nodeModules');
+
 module.exports = environment

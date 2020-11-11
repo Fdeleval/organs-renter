@@ -4,11 +4,17 @@ Rails.application.routes.draw do
   get '/',to: "pages#home"
   get  '/home/organs', to: "organs#index", as: :index
   get  '/home/show/', to: "organs#show", as: :show
-  patch  '/home/show/edit', to: "organs#update"
+  patch '/home/show/edit', to: "organs#update"
   get '/home/show/new', to: "organs#new", as: :new
   post '/home/show/create', to: "organs#create"
   get  '/home/show/:id', to: "organs#edit", as: :edit
-   get  '/home/booking/', to: "bookings#show"
+  get '/home/booking/', to: "bookings#show"
   get  '/home', to: "pages#home"
+
+  # About pages
+  get  '/values', to: "pages#values"
+  get  '/career', to: "pages#career"
+  get  '/faqs', to: "pages#faqs"
+  get  '/who', to: "pages#who"
 
 end

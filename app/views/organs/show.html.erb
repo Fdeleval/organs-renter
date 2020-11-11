@@ -9,9 +9,9 @@
           <li>Description: <%= organ.description %></li>
           <li>Renting price: <%= organ.price %></li>
         </ul>
-        <%= link_to "EDIT", edit_path(organ.id) %>
+        <%= link_to "EDIT", edit_organ_path(organ.id) %>
     <%end%>
   </ul>
-<%= link_to "Add new organ", new_path %>
+<%= link_to "Add new organ",  new_organ_path %>
 
 

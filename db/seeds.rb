@@ -6,11 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create!({address: "Rue du Labrador 26, 1348 Ottignies-Louvain-la-Neuve",email:'fred@fred.fred', password:'123456', drinker:true, smoker:true, donor:true})
-User.create!({address: "place fernand cocq, Ixelles",email:'pierre@pierre.pierre', password:'123456', drinker:true, smoker:true, donor:true})
-User.create!({address: "quai bonaparte, Liège",email:'romain.borremans@gmail.com', password:'123456', drinker:true, smoker:true, donor:true})
-User.create!({address: "rue joseph gos, braine l'alleud",email:'joseph@joseph.joseph', password:'123456', drinker:true, smoker:true, donor:true})
-User.create!({address: "Rue du Pavillon 3, 7033 Mons",email:'bob@bob.bob', password:'123456', drinker:true, smoker:true, donor:true})
+User.create!({fullname: "Frederic D",address: "Rue du Labrador 26, 1348 Ottignies-Louvain-la-Neuve",email:'fred@fred.fred', password:'123456', drinker:true, smoker:true, donor:true})
+User.create!({fullname: "Pierre C",address: "place fernand cocq, Ixelles",email:'pierre@pierre.pierre', password:'123456', drinker:true, smoker:true, donor:true})
+User.create!({fullname: "Romain B",address: "quai bonaparte, Liège",email:'romain.borremans@gmail.com', password:'123456', drinker:true, smoker:true, donor:true})
+User.create!({fullname: "Joseph V",address: "rue joseph gos, braine l'alleud",email:'joseph@joseph.joseph', password:'123456', drinker:true, smoker:true, donor:true})
+User.create!({fullname: "Bob B",address: "Rue du Pavillon 3, 7033 Mons",email:'bob@bob.bob', password:'123456', drinker:true, smoker:true, donor:true})
 
 Organ.create!({organ_type: "lungs", description: "Very good condition", user_id: 1, available: true, price: 4})
 Organ.create!({organ_type: "heart", description: "bad good condition", user_id: 1, available: true, price: 4})

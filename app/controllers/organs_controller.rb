@@ -6,14 +6,14 @@ class OrgansController < ApplicationController
   end
 
   def show
-    @organs = Organ.where(user_id: current_user.id)
     @user = current_user
+    @organs = Organ.where(user_id: @user.id)
   end
 
   def edit
     tmp = Organ.find(params[:id])
     if tmp.user_id != current_user.id
-      redirect_to('/home/show')
+      redirect_to organ_path
     else
       @organ = tmp
     end
@@ -25,7 +25,8 @@ class OrgansController < ApplicationController
     organ.price = params[:organ][:price]
     organ.available = params[:organ][:available]
     organ.save
-    redirect_to('/home/show')
+
+    redirect_to organ_path
   end
 
   def new
@@ -33,13 +34,14 @@ class OrgansController < ApplicationController
   end
 
   def create
-    organ = Organ.new(organ_params)
-    print organ
-    organ.save
-    redirect_to('/home/show')
+    @organ = Organ.new(organ_params)
+    print @organ
+    @organ.save
+    redirect_to organ_path(@organ)
   end
 
   def organ_params
     params.require(:organ).permit(:description, :price, :available, :submit, :organ_type, :user_id)
   end
+
 end

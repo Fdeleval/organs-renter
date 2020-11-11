@@ -16,7 +16,7 @@
           <% organ.booking.each do |b| %>
             <% bookings.push([[b.date_start.year, b.date_start.month, b.date_start.day],[b.date_end.year, b.date_end.month, b.date_end.day]]) %>
           <% end %>
-          <input type = "button" onclick = "hello(<%= bookings%>, <%= organ.id%>)" value = "Show calendar"> 
+          <input type = "button" onclick = "hello(<%= bookings%>, <%= organ.id%>, 'today')" value = "Show calendar"> 
 <% end %></ul>
 <%= link_to "My organs", organ_path(@organs) %>
 <h2>End of list</h2> 
@@ -36,7 +36,7 @@ const months = [
     ['November', 30],
     ['December', 31]
   ];
-function hello(a, id){
+function hello(a, id, day){
   // a[x][0] is the date start array: year, month, day
   // a[x][1] is the date end array: year, month, day
   let bookings = [];
@@ -47,24 +47,39 @@ function hello(a, id){
   });
 
   avcal = document.getElementById(`avcal${id}`)
-  if (avcal.classList.contains('active')){
+  if (avcal.classList.contains('active') && day == 'today'){
     avcal.innerHTML = ""
     avcal.classList.remove('active')
   } else {
-    calendar(avcal, id, bookings)
+    date = new Date()
+    if(day != 'today'){
+      avcal.innerHTML = ""
+      date = day
+    }
+    calendar(avcal, id, bookings, date, a)
   }
 }
 
-function calendar(avcal, id, bookings){
+function getNext(date){
+  return new Date(date.getFullYear(), date.getMonth() + 1, 1)
+}
+
+function getPrev(date){
+  return new Date(date.getFullYear(), date.getMonth() - 1, 1)
+}
+
+function calendar(avcal, id, bookings, dateI, a){
   avcal.classList.add('active')
-  const today = new Date();
-  const month = months[today.getMonth()]
+  const month = months[dateI.getMonth()]
+  const prevId = getPrev(dateI).toString()
+  const nextId = getNext(dateI).toString()
+
   const top = `
   <div class="month">
     <ul>
-      <input type="button" class="prev" value="&#10094">
-      <input type="button" class="next" value="&#10095">
-      <li>${months[today.getMonth()][0]}<br><span style="font-size:18px">2020</span></li>
+      <input type="button" class="prev" id="${prevId}" value="&#10094">
+      <input type="button" class="next" id="${nextId}" value="&#10095">
+      <li>${months[dateI.getMonth()][0]}<br><span style="font-size:18px">${dateI.getFullYear()}</span></li>
     </ul>
   </div>
   <ul class="weekdays">
@@ -80,20 +95,21 @@ function calendar(avcal, id, bookings){
   // const days =  document.getElementById(`days${id}`)
   avcal.insertAdjacentHTML('beforeend', top)
   for (let i = 1; i <= month[1]; i++) {
-    const date = new Date(`2020, ${month[0]}, ${i}`)
+    const date = new Date(`${dateI.getFullYear()}, ${month[0]}, ${i}`)
     let day = `<li>${i}</li>`;
-    let booked = false
     bookings.forEach((booking) => {
       if(date <= booking[1] && date >= booking[0]){
-        booked =  true
+        day = `<li><span class="active">${i}</span></li>`
       } 
-    });
-    if (booked){
-      day = `<li><span class="active">${i}</span></li>`
-    }    
+    }); 
     document.getElementById(`days${id}`).insertAdjacentHTML('beforeend', day)
   }
+
+  document.getElementById(`${prevId}`).addEventListener("click", () => {
+    hello(a, id, getPrev(dateI))
+  }, false);
+  document.getElementById(`${nextId}`).addEventListener("click", () => {
+    hello(a, id, getNext(dateI))
+  }, false);
 }
 </script>
-
-

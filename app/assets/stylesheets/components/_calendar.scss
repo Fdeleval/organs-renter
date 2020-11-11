@@ -73,12 +73,22 @@
 }
 
 /* Highlight the "current" day */
-.days li .active {
-  padding: 5px;
-  background: darkred;
+.days .active {
+  background-color: darkred;
   color: white !important
 }
 
 .calbox {
   width: 30%;
+}
+.days .free {
+  padding: 5px;
+}
+
+.not {
+  background-color: darkseagreen;
+}
+
+.days .selected {
+  background-color: lightblue;
 }

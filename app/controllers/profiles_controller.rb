@@ -10,14 +10,5 @@ class ProfilesController < ApplicationController
         lng: user.longitude
       }
     end
-
-    @bookings = Booking.where("user_id = #{current_user.id}")
-    r = Booking.all
-    @rentings = []
-    r.each do |booking|
-      if booking.organ.user.id == current_user.id
-        @rentings.push(booking)
-      end
-    end
   end
 end

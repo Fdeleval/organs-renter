@@ -1,45 +1,16 @@
-<h1>test form</h1>
-
-<!-- [...] -->
-<%= form_tag organs_path, method: :get do %>
-  <%= text_field_tag :query,
-    params[:query],
-    class: "form-control",
-    placeholder: "Find an organ"
-  %>
-  <%= submit_tag "Search", class: "btn btn-primary" %>
+<%= simple_form_for @booking, {url: "/organs/#{@booking.organ.id}/bookings/#{@booking.user.id}"} do |f| %>
+  <%= f.input :accepted%>
+  <%= f.hidden_field :id  %>
+  <%= f.button :submit %>
 <% end %>
-<!-- the list of movies -->
+<div id="avcal<%=@booking.organ.id%>" class="calbox"></div>
+<% bookings = [] %>
+<% @booking.organ.booking.each do |b| %>
+  <% bookings.push([[b.date_start.year, b.date_start.month, b.date_start.day],[b.date_end.year, b.date_end.month, b.date_end.day],[b.accepted],[b.id]]) %>
+<% end %>
 
+<input type = "button" onclick = "hello1(<%= bookings%>, <%= @booking.organ.id%>, 'today', <%= []%>, <%= @booking.id %>)" value = "Show calendar"> 
 
-<h1>List of all the organs</h1>
-
-  <ul> <% @organs.each do |organ| %>
-    <li>User email: <%= organ.user.email  %> </li>
-    <ul>
-      <li> Organ's type: <%= organ.organ_type   %> </li>
-      <li>Description: <%= organ.description  %> </li>
-      <li class="available"> <%= organ.available == true ? "Available" : "Not avaiblabe for the moment" %> </li>
-      <li>Renting price:<%= organ.price   %>€  </li>
-    </ul>
-          <div id="avcal<%=organ.id%>" class="calbox"></div>
-          <% bookings = [] %>
-          <% organ.booking.each do |b| %>
-            <% bookings.push([[b.date_start.year, b.date_start.month, b.date_start.day],[b.date_end.year, b.date_end.month, b.date_end.day],[b.accepted]]) %>
-          <% end %>
-
-
-    <form action="organs/<%= organ.id %>/bookings" method="POST" class="formcal" id="formcal<%= organ.id %>">
-      <input type="hidden" value="" id="date_start<%=organ.id%>" name="date_start">
-      <input type="hidden" value="" id="date_end<%=organ.id%>" name="date_end">
-      <input type="Submit" value="Book this organ" id="submit<%=organ.id%>">
-    </form>
-
-
-          <input type = "button" onclick = "hello(<%= bookings%>, <%= organ.id%>, 'today', <%= []%>)" value = "Show calendar">
-<% end %></ul>
-<%= link_to "My organs", organ_path(@organs) %>
-<h2>End of list</h2>
 
 
 
@@ -77,13 +48,6 @@ const months = [
     ['November', 30],
     ['December', 31]
   ];
-
-
-
-
-
-
-
 
 function hello(a, id, day, selected){
   // a[x][0] is the date start array: year, month, day
@@ -264,7 +228,6 @@ function calendar(avcal, id, bookings, dateI, a, selected){
           day = `<li class="active_un">${i}</li>`
         }
       } 
-
     });
     selected.forEach((item) => {
       if(sameDate(item,date)){

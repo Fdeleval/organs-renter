@@ -20,4 +20,5 @@ Rails.application.routes.draw do
   end
   resources :bookings, only: [:destroy, :index, :create]
 
+
 end

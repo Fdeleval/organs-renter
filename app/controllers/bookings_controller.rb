@@ -23,6 +23,16 @@ class BookingsController < ApplicationController
     booking = Booking.new({date_start: date_start, date_end: date_end, organ_id: organ_id, user_id: user_id})
     booking.save
     redirect_to("/")
+  end
 
+  def edit
+    @booking = Booking.find(params[:id])
+  end
+
+  def update
+    booking = Booking.find(params[:booking][:id])
+    booking.accepted = params[:booking][:accepted]
+    booking.save
+    redirect_to("/")
   end
 end

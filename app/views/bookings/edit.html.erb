@@ -1,5 +1,5 @@
 <%= simple_form_for @booking, {url: "/organs/#{@booking.organ.id}/bookings/#{@booking.user.id}"} do |f| %>
-  <%= f.input :accepted%>
+  <%= f.input :accepted, type: :boolean%>
   <%= f.hidden_field :id  %>
   <%= f.button :submit %>
 <% end %>
@@ -10,14 +10,6 @@
 <% end %>
 
 <input type = "button" onclick = "hello1(<%= bookings%>, <%= @booking.organ.id%>, 'today', <%= []%>, <%= @booking.id %>)" value = "Show calendar"> 
-
-
-
-
-
-
-
-
 
 
 

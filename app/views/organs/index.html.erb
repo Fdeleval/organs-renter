@@ -1,4 +1,15 @@
+<h1>test form</h1>
 
+<!-- [...] -->
+<%= form_tag organs_path, method: :get do %>
+  <%= text_field_tag :query,
+    params[:query],
+    class: "form-control",
+    placeholder: "Find an organ"
+  %>
+  <%= submit_tag "Search", class: "btn btn-primary" %>
+<% end %>
+<!-- the list of movies -->
 
 
 <h1>List of all the organs</h1>
@@ -25,10 +36,10 @@
     </form>
 
 
-          <input type = "button" onclick = "hello(<%= bookings%>, <%= organ.id%>, 'today', <%= []%>)" value = "Show calendar"> 
+          <input type = "button" onclick = "hello(<%= bookings%>, <%= organ.id%>, 'today', <%= []%>)" value = "Show calendar">
 <% end %></ul>
 <%= link_to "My organs", organ_path(@organs) %>
-<h2>End of list</h2> 
+<h2>End of list</h2>
 
 
 
@@ -253,6 +264,7 @@ function calendar(avcal, id, bookings, dateI, a, selected){
           day = `<li class="active_un">${i}</li>`
         }
       } 
+
     });
     selected.forEach((item) => {
       if(sameDate(item,date)){

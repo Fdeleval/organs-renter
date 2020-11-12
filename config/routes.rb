@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   root to: "profiles#index"
 
   # pages
-  get  '/home', to: "pages#home"
+  get  '/home', to: "pages#home", as: :user_root
 
   # About pages
   get  '/values', to: "pages#values"
@@ -13,9 +13,12 @@ Rails.application.routes.draw do
   get  '/faqs', to: "pages#faqs"
   get  '/who', to: "pages#who"
 
+
+
   resources :organs do
     resources :bookings, only: [:new, :create, :edit, :update]
   end
-  resources :bookings, only: [:destroy, :index]
+  resources :bookings, only: [:destroy, :index, :create]
+
 
 end

@@ -78,6 +78,11 @@
   color: white !important
 }
 
+.days .active_un {
+  background-color: lightcoral;
+  color: white !important
+}
+
 .calbox {
   width: 30%;
 }
@@ -91,4 +96,19 @@
 
 .days .selected {
   background-color: lightblue;
+}
+
+
+.formcal {
+  display: none;
+}
+
+
+.days .presentBooking {
+  background-color: lightskyblue;
+}
+
+.days .activeP {
+  background-color: blue;
+  color: white;
 }

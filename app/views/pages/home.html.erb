@@ -6,3 +6,32 @@
 
 
 <%= link_to "All organs", organs_path %> | <%= link_to "My booking(s)", bookings_path(@user) %>
+
+
+<div class="rentings">
+  <ul> <% @rentings.each do |booking| %>
+    <li>Renters name: <%= booking.user.fullname  %> </li>
+    <li>Owners name: <%= booking.organ.user.fullname  %> </li>
+    <ul>
+      <li> Organ's type: <%= booking.organ.organ_type   %> </li>
+      <li>Description: <%= booking.organ.description  %> </li>
+      <li class="available"> <%= booking.organ.available == true ? "Available" : "Not avaiblabe for the moment" %> </li>
+      <li>Renting price:<%= booking.organ.price   %>€  </li>
+      <a href="/organs/<%= booking.organ.id%>/bookings/<%= booking.user.id%>/edit">View this booking</a>
+    </ul>
+  <% end %>
+  </ul>
+</div>
+<p>---------------------------------------------------</p>
+<div class="bookings">
+  <ul> <% @bookings.each do |booking| %>
+    <li>owners name: <%= booking.organ.user.fullname  %> </li>
+    <ul>
+      <li> Organ's type: <%= booking.organ.organ_type   %> </li>
+      <li>Description: <%= booking.organ.description  %> </li>
+      <li class="available"> <%= booking.organ.available == true ? "Available" : "Not avaiblabe for the moment" %> </li>
+      <li>Renting price:<%= booking.organ.price   %>€  </li>
+    </ul>
+  <% end %>
+  </ul>
+</div>

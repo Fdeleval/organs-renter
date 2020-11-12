@@ -2,8 +2,13 @@ class OrgansController < ApplicationController
   before_action :authenticate_user!, except: [:index]
 
   def index
-    @organs = Organ.all
-    # @user = current_user
+    if params[:query].present?
+      @user = current_user
+      @organs = Organ.where("organ_type ILIKE ?", "%#{params[:query].downcase}%")
+    else
+      @organs = Organ.all
+      @user = current_user
+    end
   end
 
   def show

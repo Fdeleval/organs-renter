@@ -14,7 +14,7 @@
     <div id="avcal<%=organ.id%>" class="calbox"></div>
           <% bookings = [] %>
           <% organ.booking.each do |b| %>
-            <% bookings.push([[b.date_start.year, b.date_start.month, b.date_start.day],[b.date_end.year, b.date_end.month, b.date_end.day]]) %>
+            <% bookings.push([[b.date_start.year, b.date_start.month, b.date_start.day],[b.date_end.year, b.date_end.month, b.date_end.day],[b.accepted]]) %>
           <% end %>
 
 
@@ -53,7 +53,7 @@ function hello(a, id, day, selected){
   a.forEach((item) => {
     const start = new Date(`${item[0][0]},${item[0][1]},${item[0][2]}`)
     const end = new Date(`${item[1][0]},${item[1][1]},${item[1][2]}`)
-    bookings.push([start, end])
+    bookings.push([start, end, item[2][0]])
   });
 
   avcal = document.getElementById(`avcal${id}`)
@@ -68,7 +68,6 @@ function hello(a, id, day, selected){
       date = day
     }
     avcal.classList.add('active')
-    document.getElementById(`formcal${id}`).style.display = "block"
     calendar(avcal, id, bookings, date, a, selected)
   }
 }
@@ -135,6 +134,7 @@ function activate(element, s, dateI, id) {
   } else {
     let date = new Date(dateI.getFullYear(), dateI.getMonth(), element.id)
     if(s.length == 0 || possible(date, s)){
+      document.getElementById(`formcal${id}`).style.display = "block"
       s.push(date)
     } else {
       s.length = 0
@@ -179,7 +179,11 @@ function calendar(avcal, id, bookings, dateI, a, selected){
     let day = `<li class="free${id}" id="${i}">${i}</li>`;
     bookings.forEach((booking) => {
       if(date <= booking[1] && date >= booking[0]){
-        day = `<li class="active">${i}</li>`
+        if(booking[2] == true){
+          day = `<li class="active">${i}</li>`
+        } else {
+          day = `<li class="active_un">${i}</li>`
+        }
       } 
     });
     selected.forEach((item) => {

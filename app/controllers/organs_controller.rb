@@ -17,8 +17,10 @@ class OrgansController < ApplicationController
   end
 
   def show
+    # @user = current_user
+    # @organs = Organ.where(user_id: @user.id)
+    @organ = Organ.find(params[:id])
     @user = current_user
-    @organs = Organ.where(user_id: @user.id)
   end
 
   def edit

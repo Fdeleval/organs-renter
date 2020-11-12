@@ -4,10 +4,15 @@ class OrgansController < ApplicationController
   def index
     if params[:query].present?
       @user = current_user
-      @organs = Organ.where("organ_type ILIKE ?", "%#{params[:query].downcase}%")
+      sql_query = " \
+        organs.organ_type @@ :query \
+        OR users.fullname @@ :query \
+        "
+      @organs = Organ.joins(:user).where(sql_query, query: params[:query])
     else
       @organs = Organ.all
       @user = current_user
+      # flash[:alert] = "Organ not found."
     end
 
     @markers = User.all.geocoded.map do |flat|
@@ -19,8 +24,10 @@ class OrgansController < ApplicationController
   end
 
   def show
+    # @user = current_user
+    # @organs = Organ.where(user_id: @user.id)
+    @organ = Organ.find(params[:id])
     @user = current_user
-    @organs = Organ.where(user_id: @user.id)
   end
 
   def edit

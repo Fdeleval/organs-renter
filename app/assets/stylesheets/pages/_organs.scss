@@ -41,12 +41,26 @@
 
 .list-inline-item > a {
   color: #0E0000;
+  opacity: 0.7;
   &:hover {
-    color: #cd0a0a;
+    opacity: 1;
     text-decoration: none;
   }
 }
 
+.list-inline-item > a.active {
+    opacity: 1;
+    font-weight: bolder;
+}
+
+
+
+
 form {
   margin-bottom: 30px;
 }
+
+.hide {
+  display: none;
+}
+

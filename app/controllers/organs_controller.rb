@@ -3,7 +3,7 @@ class OrgansController < ApplicationController
 
   def index
     @organs = Organ.all
-    @user = current_user
+    # @user = current_user
   end
 
   def show

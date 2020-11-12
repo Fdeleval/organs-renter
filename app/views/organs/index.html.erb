@@ -1,4 +1,4 @@
-<h1>test form</h1>
+<h1>Looking for an organ <%= current_user.fullname%>?</h1>
 
 <!-- [...] -->
 <%= form_tag organs_path, method: :get do %>
@@ -11,8 +11,43 @@
 <% end %>
 <!-- the list of movies -->
 
+<div class="cards">
+  <%@organs.each do |organ|%>
+    <% if organ.available == true %>
+      <div class="card-trip">
+      <%= link_to "Book now!", organ_path(organ), class: 'btn btn-flat book-now' %>
+      <%= link_to "More details", organ_path(organ), class: 'btn btn-ghost-white learn-more' %>
+        <div class="card-img" style="background-image: url(
+          <% if organ.user.photo.attached? %>
+            <%= cl_image_path organ.user.photo.key, height: 300, width: 400, crop: :fill %>
+          <%else%>
+            <%='https://res.cloudinary.com/rommcb/image/upload/v1605186478/person-placeholder.jpg' %>
+          <% end %>
+        ); transition: background 0.3s ease;">
+        </div>
+        <div class="card-trip-infos">
+          <div>
+            <h2>The <%= organ.organ_type%> of <%= organ.user.fullname %></h2>
+          <p><%= organ.description  %></p>
+          </div>
+          <h2 class="card-trip-pricing"><%= organ.price %>€ /day</h2>
+          <% if organ.organ_type == 'heart' %>
+            <%= cl_image_tag("human-organs-icons.jpg", class: 'card-trip-user avatar-bordered', :effect=>"grayscale", :transformation=>[{:x=>775, :y=>25, :width=>200, :height=>200, :crop=>"crop"},{:width=>40, :height=>40, :crop=>"scale"}])%>
+          <% end %>
+          <% if organ.organ_type == 'lungs' %>
+            <%= cl_image_tag("human-organs-icons.jpg", class: 'card-trip-user avatar-bordered', :effect=>"grayscale", :transformation=>[{:x=>25, :y=>766, :width=>199, :height=>199, :crop=>"crop"},{:width=>40, :height=>40, :crop=>"scale"}])%>
+          <% end %>
+          <% if organ.organ_type == 'brain' %>
+            <%= cl_image_tag("human-organs-icons.jpg", class: 'card-trip-user avatar-bordered', :effect=>"grayscale", :transformation=>[{:x=>775, :y=>522, :width=>200, :height=>200, :crop=>"crop"},{:width=>40, :height=>40, :crop=>"scale"}])%>
+          <% end %>
+        </div>
+      </div>
+    <%end%>
+  <%end%>
+</div>
 
-<h1>List of all the organs</h1>
+
+<h2>Fred list</h2>
 
   <ul> <% @organs.each do |organ| %>
     <li>User email: <%= organ.user.email  %> </li>

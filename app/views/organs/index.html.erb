@@ -30,7 +30,28 @@
 <%= link_to "My organs", organ_path(@organs) %>
 <h2>End of list</h2> 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
+var clicker = 0
 const months = [
     ['January', 31],
     ['February', 28],
@@ -45,6 +66,14 @@ const months = [
     ['November', 30],
     ['December', 31]
   ];
+
+
+
+
+
+
+
+
 function hello(a, id, day, selected){
   // a[x][0] is the date start array: year, month, day
   // a[x][1] is the date end array: year, month, day
@@ -69,6 +98,45 @@ function hello(a, id, day, selected){
     }
     avcal.classList.add('active')
     calendar(avcal, id, bookings, date, a, selected)
+  }
+}
+
+function hello1(a, id, day, selected, booking_id){
+  // a[x][0] is the date start array: year, month, day
+  // a[x][1] is the date end array: year, month, day
+  if(day == 'today'){
+    document.getElementById(`booking_accepted`).addEventListener("click", () => {
+      if(clicker == 0){
+        clicker = 1
+        console.log('hey');
+      } else {
+        clicker = 0
+      }
+    hello1(a, id, 'none', selected, booking_id)
+  }, false);
+  }
+
+  let bookings = [];
+  a.forEach((item) => {
+    const start = new Date(`${item[0][0]},${item[0][1]},${item[0][2]}`)
+    const end = new Date(`${item[1][0]},${item[1][1]},${item[1][2]}`)
+    bookings.push([start, end, item[2][0], item[3][0]])
+  });
+
+  avcal = document.getElementById(`avcal${id}`)
+  if (avcal.classList.contains('active') && day == 'today'){
+    avcal.innerHTML = ""
+    avcal.classList.remove('active')
+  } else {
+    date = new Date()
+    if (day == 'none'){
+      avcal.innerHTML = ""
+    } else if(day != 'today'){
+      avcal.innerHTML = ""
+      date = day
+    }
+    avcal.classList.add('active')
+    calendar1(avcal, id, bookings, date, a, selected, booking_id)
   }
 }
 
@@ -204,6 +272,80 @@ function calendar(avcal, id, bookings, dateI, a, selected){
   }, false);
   document.getElementById(`${nextId}`).addEventListener("click", () => {
     hello(a, id, getNext(dateI), selected)
+  }, false);
+}
+
+function calendar1(avcal, id, bookings, dateI, a, selected, booking_id){
+  const month = months[dateI.getMonth()]
+  const prevId = getPrev(dateI).toString()
+  const nextId = getNext(dateI).toString()
+
+  const top = `
+  <div class="month">
+    <ul>
+      <input type="button" class="prev" id="${prevId}" value="&#10094">
+      <input type="button" class="next" id="${nextId}" value="&#10095">
+      <li>${months[dateI.getMonth()][0]}<br><span style="font-size:18px">${dateI.getFullYear()}</span></li>
+    </ul>
+  </div>
+  <ul class="weekdays">
+    <li>Mo</li>
+    <li>Tu</li>
+    <li>We</li>
+    <li>Th</li>
+    <li>Fr</li>
+    <li>Sa</li>
+    <li>Su</li>
+  </ul>
+  <ul class="days" id="days${id}">`
+  avcal.insertAdjacentHTML('beforeend', top)
+  for (let i = 1; i <= month[1]; i++) {
+    const date = new Date(`${dateI.getFullYear()}, ${month[0]}, ${i}`)
+    let day = `<li class="free${id}" id="${i}">${i}</li>`;
+    bookings.forEach((booking) => {
+      if(date <= booking[1] && date >= booking[0]){
+
+        if(clicker == 1 && booking[3] == booking_id){
+          tmpAccepted = !booking[2]
+        } else {
+          tmpAccepted = booking[2]
+        }
+
+        if(tmpAccepted == true){
+
+          if(booking[3] == booking_id){
+            day = `<li class="activeP">${i}</li>`
+          } else {
+            console.log(booking[3]);
+            console.log(booking_id);
+            day = `<li class="active">${i}</li>`
+          }
+        } else {
+
+          if(booking[3] == booking_id){
+            day = `<li class="presentBooking">${i}</li>`
+          } else {
+            day = `<li class="active_un">${i}</li>`
+          }
+        }
+
+
+      } 
+    });
+    selected.forEach((item) => {
+      if(sameDate(item,date)){
+        day = `<li class="free${id} selected" id="${i}">${i}</li>`;
+      }
+    });
+    document.getElementById(`days${id}`).insertAdjacentHTML('beforeend', day)
+  }
+  const array = document.getElementsByClassName(`free${id}`);
+
+  document.getElementById(`${prevId}`).addEventListener("click", () => {
+    hello(a, id, getPrev(dateI), selected, booking_id)
+  }, false);
+  document.getElementById(`${nextId}`).addEventListener("click", () => {
+    hello(a, id, getNext(dateI), selected, booking_id)
   }, false);
 }
 </script>

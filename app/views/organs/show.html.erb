@@ -1,9 +1,7 @@
-
-
   <li>Organ belongs to: <%= @organ.user.fullname %></li>
   <li>Organ kind: <%= @organ.organ_type %></li>
   <li>Description: <%= @organ.description %></li>
-  <li>Renting price: <%= @organ.price %></li>
+  <li id='testingId'>Renting price: <%= @organ.price %></li>
     <%# <%= link_to "EDIT", edit_organ_path(@organ.id) %>
 
 <%# <%= link_to "Add new organ",  new_organ_path %>
@@ -25,6 +23,7 @@
  <input type = "button" onclick = "hello(<%= bookings%>, <%= @organ.id%>, 'today', <%= []%>)" value = "Show calendar" id='calcall'>
 
 <script>
+
 function eventFire(el, etype){
   if (el.fireEvent) {
     el.fireEvent('on' + etype);
@@ -34,12 +33,21 @@ function eventFire(el, etype){
     el.dispatchEvent(evObj);
   }
 }
+
 window.onload = function() {
-  console.log('hzerkjfhkqsdhfkjqsdkfhqksjdfhh');
-  eventFire(document.getElementById('calcall'), 'click');
-};
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+}
+
 var clicker = 0
-const monthsL = [
+
+eventFire(document.getElementById('calcall'), 'click');
+function hello(a, id, day, selected){
+  // a[x][0] is the date start array: year, month, day
+  // a[x][1] is the date end array: year, month, day
+  const monthsL = [
     ['January', 31],
     ['February', 28],
     ['March', 31],
@@ -53,10 +61,6 @@ const monthsL = [
     ['November', 30],
     ['December', 31]
   ];
-
-function hello(a, id, day, selected){
-  // a[x][0] is the date start array: year, month, day
-  // a[x][1] is the date end array: year, month, day
   let bookings = [];
   console.log(selected);
   a.forEach((item) => {
@@ -77,13 +81,27 @@ function hello(a, id, day, selected){
       date = day
     }
     avcal.classList.add('active')
-    calendar(avcal, id, bookings, date, a, selected)
+    calendar(avcal, id, bookings, date, a, selected, monthsL)
   }
 }
 
 function hello1(a, id, day, selected, booking_id){
   // a[x][0] is the date start array: year, month, day
   // a[x][1] is the date end array: year, month, day
+  const monthsL = [
+    ['January', 31],
+    ['February', 28],
+    ['March', 31],
+    ['April', 30],
+    ['May', 31],
+    ['June', 30],
+    ['July', 31],
+    ['August', 31],
+    ['September', 30],
+    ['October', 31],
+    ['November', 30],
+    ['December', 31]
+  ];
   if(day == 'today'){
     document.getElementById(`booking_accepted`).addEventListener("click", () => {
       if(clicker == 0){
@@ -116,7 +134,7 @@ function hello1(a, id, day, selected, booking_id){
       date = day
     }
     avcal.classList.add('active')
-    calendar1(avcal, id, bookings, date, a, selected, booking_id)
+    calendar1(avcal, id, bookings, date, a, selected, booking_id, monthsL)
   }
 }
 
@@ -198,7 +216,7 @@ function activate(element, s, dateI, id) {
   }
 }
 
-function calendar(avcal, id, bookings, dateI, a, selected){
+function calendar(avcal, id, bookings, dateI, a, selected, monthsL){
   const month = monthsL[dateI.getMonth()]
   const prevId = getPrev(dateI).toString()
   const nextId = getNext(dateI).toString()
@@ -256,7 +274,7 @@ function calendar(avcal, id, bookings, dateI, a, selected){
   }, false);
 }
 
-function calendar1(avcal, id, bookings, dateI, a, selected, booking_id){
+function calendar1(avcal, id, bookings, dateI, a, selected, booking_id, monthsL){
   const month = monthsL[dateI.getMonth()]
   const prevId = getPrev(dateI).toString()
   const nextId = getNext(dateI).toString()

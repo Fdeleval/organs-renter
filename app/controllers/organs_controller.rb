@@ -9,6 +9,13 @@ class OrgansController < ApplicationController
       @organs = Organ.all
       @user = current_user
     end
+
+    @markers = User.all.geocoded.map do |flat|
+      {
+        lat: flat.latitude,
+        lng: flat.longitude
+      }
+    end
   end
 
   def show

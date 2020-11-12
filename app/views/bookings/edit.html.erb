@@ -5,7 +5,7 @@
 <% end %>
 <div id="avcal<%=@booking.organ.id%>" class="calbox"></div>
 <% bookings = [] %>
-<% @booking.organ.booking.each do |b| %>
+<% @booking.organ.bookings.each do |b| %>
   <% bookings.push([[b.date_start.year, b.date_start.month, b.date_start.day],[b.date_end.year, b.date_end.month, b.date_end.day],[b.accepted],[b.id]]) %>
 <% end %>
 

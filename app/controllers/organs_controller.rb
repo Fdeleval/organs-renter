@@ -2,15 +2,23 @@ class OrgansController < ApplicationController
   before_action :authenticate_user!, except: [:index]
 
   def index
+    if current_user == nil
+      u_id = 0
+    else
+      u_id = current_user.id
+    end
+
     if params[:query].present?
       @user = current_user
       sql_query = " \
         organs.organ_type @@ :query \
         OR users.fullname @@ :query \
         "
-      @organs = Organ.joins(:user).where(sql_query, query: params[:query])
+      organs = Organ.joins(:user).where(sql_query, query: params[:query])
+      @organs = remove_user_organs(organs, u_id)
     else
-      @organs = Organ.all
+      organs = Organ.all
+      @organs = remove_user_organs(organs, u_id)
       @user = current_user
       # flash[:alert] = "Organ not found."
     end
@@ -21,6 +29,16 @@ class OrgansController < ApplicationController
         lng: flat.longitude
       }
     end
+  end
+
+  def remove_user_organs(organs, u_id)
+    org = []
+    organs.each do |item|
+      if item.user.id != u_id
+        org.push(item)
+      end
+    end
+    return org
   end
 
   def show

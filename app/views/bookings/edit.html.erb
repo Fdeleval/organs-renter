@@ -317,10 +317,10 @@ function calendar1(avcal, id, bookings, dateI, a, selected, booking_id){
   const array = document.getElementsByClassName(`free${id}`);
 
   document.getElementById(`${prevId}`).addEventListener("click", () => {
-    hello(a, id, getPrev(dateI), selected, booking_id)
+    hello1(a, id, getPrev(dateI), selected, booking_id)
   }, false);
   document.getElementById(`${nextId}`).addEventListener("click", () => {
-    hello(a, id, getNext(dateI), selected, booking_id)
+    hello1(a, id, getNext(dateI), selected, booking_id)
   }, false);
 }
 </script>

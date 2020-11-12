@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   root to: "profiles#index"
 
   # pages
-  get  '/home', to: "pages#home"
+  get  '/home', to: "pages#home", as: :user_root
 
   # About pages
   get  '/values', to: "pages#values"

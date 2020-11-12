@@ -1,17 +1,335 @@
 
 
-<h1>Organs for <%= @user.email %>:</h1>
+  <li>Organ belongs to: <%= @organ.user.fullname %></li>
+  <li>Organ kind: <%= @organ.organ_type %></li>
+  <li>Description: <%= @organ.description %></li>
+  <li>Renting price: <%= @organ.price %></li>
+    <%# <%= link_to "EDIT", edit_organ_path(@organ.id) %>
 
-  <ul>
-    <% @organs.each do |organ|  %>
-      <li>Organ kind: <%= organ.organ_type %></li>
-        <ul>
-          <li>Description: <%= organ.description %></li>
-          <li>Renting price: <%= organ.price %></li>
-        </ul>
-        <%= link_to "EDIT", edit_organ_path(organ.id) %>
-    <%end%>
+<%# <%= link_to "Add new organ",  new_organ_path %>
+
+<div id="avcal<%=@organ.id%>" class="calbox"></div>
+    <% bookings = [] %>
+    <% @organ.bookings.each do |b| %>
+      <% bookings.push([[b.date_start.year, b.date_start.month, b.date_start.day],[b.date_end.year, b.date_end.month, b.date_end.day],[b.accepted]]) %>
+    <% end %>
+
+
+    <form action="<%= @organ.id %>/bookings" method="POST" class="formcal" id="formcal<%= @organ.id %>">
+      <input type="hidden" value="" id="date_start<%=@organ.id%>" name="date_start">
+      <input type="hidden" value="" id="date_end<%=@organ.id%>" name="date_end">
+      <input type="Submit" value="Book this organ" id="submit<%=@organ.id%>">
+    </form>
+
+
+ <input type = "button" onclick = "hello(<%= bookings%>, <%= @organ.id%>, 'today', <%= []%>)" value = "Show calendar" id='calcall'>
+
+<script>
+function eventFire(el, etype){
+  if (el.fireEvent) {
+    el.fireEvent('on' + etype);
+  } else {
+    var evObj = document.createEvent('Events');
+    evObj.initEvent(etype, true, false);
+    el.dispatchEvent(evObj);
+  }
+}
+window.onload = function() {
+  console.log('hzerkjfhkqsdhfkjqsdkfhqksjdfhh');
+  eventFire(document.getElementById('calcall'), 'click');
+};
+var clicker = 0
+const monthsL = [
+    ['January', 31],
+    ['February', 28],
+    ['March', 31],
+    ['April', 30],
+    ['May', 31],
+    ['June', 30],
+    ['July', 31],
+    ['August', 31],
+    ['September', 30],
+    ['October', 31],
+    ['November', 30],
+    ['December', 31]
+  ];
+
+function hello(a, id, day, selected){
+  // a[x][0] is the date start array: year, month, day
+  // a[x][1] is the date end array: year, month, day
+  let bookings = [];
+  console.log(selected);
+  a.forEach((item) => {
+    const start = new Date(`${item[0][0]},${item[0][1]},${item[0][2]}`)
+    const end = new Date(`${item[1][0]},${item[1][1]},${item[1][2]}`)
+    bookings.push([start, end, item[2][0]])
+  });
+
+  avcal = document.getElementById(`avcal${id}`)
+  if (avcal.classList.contains('active') && day == 'today'){
+    avcal.innerHTML = ""
+    avcal.classList.remove('active')
+    document.getElementById(`formcal${id}`).style.display = "none"
+  } else {
+    date = new Date()
+    if(day != 'today'){
+      avcal.innerHTML = ""
+      date = day
+    }
+    avcal.classList.add('active')
+    calendar(avcal, id, bookings, date, a, selected)
+  }
+}
+
+function hello1(a, id, day, selected, booking_id){
+  // a[x][0] is the date start array: year, month, day
+  // a[x][1] is the date end array: year, month, day
+  if(day == 'today'){
+    document.getElementById(`booking_accepted`).addEventListener("click", () => {
+      if(clicker == 0){
+        clicker = 1
+        console.log('hey');
+      } else {
+        clicker = 0
+      }
+    hello1(a, id, 'none', selected, booking_id)
+  }, false);
+  }
+
+  let bookings = [];
+  a.forEach((item) => {
+    const start = new Date(`${item[0][0]},${item[0][1]},${item[0][2]}`)
+    const end = new Date(`${item[1][0]},${item[1][1]},${item[1][2]}`)
+    bookings.push([start, end, item[2][0], item[3][0]])
+  });
+
+  avcal = document.getElementById(`avcal${id}`)
+  if (avcal.classList.contains('active') && day == 'today'){
+    avcal.innerHTML = ""
+    avcal.classList.remove('active')
+  } else {
+    date = new Date()
+    if (day == 'none'){
+      avcal.innerHTML = ""
+    } else if(day != 'today'){
+      avcal.innerHTML = ""
+      date = day
+    }
+    avcal.classList.add('active')
+    calendar1(avcal, id, bookings, date, a, selected, booking_id)
+  }
+}
+
+function getNext(date){
+  return new Date(date.getFullYear(), date.getMonth() + 1, 1)
+}
+
+function getPrev(date){
+  return new Date(date.getFullYear(), date.getMonth() - 1, 1)
+}
+
+function sameDate(date1, date2){
+  if(date1.getFullYear() == date2.getFullYear() && date2.getMonth() == date1.getMonth() && date1.getDate() == date2.getDate()){
+    return true;
+  } else {
+    return false
+  }
+}
+
+function possible(date, s){
+  let prev = new Date(date.getFullYear(), date.getMonth(), date.getDate() -1)
+  let next = new Date(date.getFullYear(), date.getMonth(), date.getDate() +1)
+  let val = 0
+  s.forEach((item) => {
+   if(sameDate(item, next) || sameDate(item, prev)){
+    val = 1
+   }
+  });
+  return val == 1
+}
+
+function sortDates(s){
+  s.sort(function(a,b){
+  return a - b
+  });
+}
+
+function formatDate(date){
+  let s = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+  return s
+}
+
+function updateForm(s, id){
+  sortDates(s)
+  const date_s = formatDate(s[0])
+  const date_e = formatDate(s[s.length - 1])
+  let f_date_s = document.getElementById(`date_start${id}`)
+  let f_date_e = document.getElementById(`date_end${id}`)
+  f_date_s.value = date_s
+  f_date_e.value = date_e
+}
+
+function activate(element, s, dateI, id) {
+  if(element.classList.contains("selected")){
+    element.classList.remove("selected");
+    let date = new Date(dateI.getFullYear(), dateI.getMonth(), element.id)
+    for(i=0; i<s.length; i++){
+      const item = s[i]
+      if(item.getFullYear() == date.getFullYear() && date.getMonth() == item.getMonth() && item.getDate() == date.getDate()){
+        s.splice(i,1)
+      }
+    }
+  } else {
+    let date = new Date(dateI.getFullYear(), dateI.getMonth(), element.id)
+    if(s.length == 0 || possible(date, s)){
+      document.getElementById(`formcal${id}`).style.display = "block"
+      s.push(date)
+    } else {
+      s.length = 0
+
+      arr = [...document.getElementsByClassName('selected')]
+      for (let i = 0; i < arr.length; i++) {
+        arr[i].classList.remove('selected')
+      }
+      s.push(date)
+    }
+    element.classList.add("selected");
+    updateForm(s, id)
+  }
+}
+
+function calendar(avcal, id, bookings, dateI, a, selected){
+  const month = monthsL[dateI.getMonth()]
+  const prevId = getPrev(dateI).toString()
+  const nextId = getNext(dateI).toString()
+
+  const top = `
+  <div class="month">
+    <ul>
+      <input type="button" class="prev" id="${prevId}" value="&#10094">
+      <input type="button" class="next" id="${nextId}" value="&#10095">
+      <li>${monthsL[dateI.getMonth()][0]}<br><span style="font-size:18px">${dateI.getFullYear()}</span></li>
+    </ul>
+  </div>
+  <ul class="weekdays">
+    <li>Mo</li>
+    <li>Tu</li>
+    <li>We</li>
+    <li>Th</li>
+    <li>Fr</li>
+    <li>Sa</li>
+    <li>Su</li>
   </ul>
-<%= link_to "Add new organ",  new_organ_path %>
+  <ul class="days" id="days${id}">`
+  avcal.insertAdjacentHTML('beforeend', top)
+  for (let i = 1; i <= month[1]; i++) {
+    const date = new Date(`${dateI.getFullYear()}, ${month[0]}, ${i}`)
+    let day = `<li class="free${id}" id="${i}">${i}</li>`;
+    bookings.forEach((booking) => {
+      if(date <= booking[1] && date >= booking[0]){
+        if(booking[2] == true){
+          day = `<li class="active">${i}</li>`
+        } else {
+          day = `<li class="active_un">${i}</li>`
+        }
+      } 
+
+    });
+    selected.forEach((item) => {
+      if(sameDate(item,date)){
+        day = `<li class="free${id} selected" id="${i}">${i}</li>`;
+      }
+    });
+    document.getElementById(`days${id}`).insertAdjacentHTML('beforeend', day)
+  }
+  const array = document.getElementsByClassName(`free${id}`);
+  for (let index = 0; index < array.length; index += 1) {
+    const element = array[index];
+    element.addEventListener("click", () => { activate(element, selected, dateI, id); }, false);
+  }
+
+  document.getElementById(`${prevId}`).addEventListener("click", () => {
+    hello(a, id, getPrev(dateI), selected)
+  }, false);
+  document.getElementById(`${nextId}`).addEventListener("click", () => {
+    hello(a, id, getNext(dateI), selected)
+  }, false);
+}
+
+function calendar1(avcal, id, bookings, dateI, a, selected, booking_id){
+  const month = monthsL[dateI.getMonth()]
+  const prevId = getPrev(dateI).toString()
+  const nextId = getNext(dateI).toString()
+
+  const top = `
+  <div class="month">
+    <ul>
+      <input type="button" class="prev" id="${prevId}" value="&#10094">
+      <input type="button" class="next" id="${nextId}" value="&#10095">
+      <li>${monthsL[dateI.getMonth()][0]}<br><span style="font-size:18px">${dateI.getFullYear()}</span></li>
+    </ul>
+  </div>
+  <ul class="weekdays">
+    <li>Mo</li>
+    <li>Tu</li>
+    <li>We</li>
+    <li>Th</li>
+    <li>Fr</li>
+    <li>Sa</li>
+    <li>Su</li>
+  </ul>
+  <ul class="days" id="days${id}">`
+  avcal.insertAdjacentHTML('beforeend', top)
+  for (let i = 1; i <= month[1]; i++) {
+    const date = new Date(`${dateI.getFullYear()}, ${month[0]}, ${i}`)
+    let day = `<li class="free${id}" id="${i}">${i}</li>`;
+    bookings.forEach((booking) => {
+      if(date <= booking[1] && date >= booking[0]){
+
+        if(clicker == 1 && booking[3] == booking_id){
+          tmpAccepted = !booking[2]
+        } else {
+          tmpAccepted = booking[2]
+        }
+
+        if(tmpAccepted == true){
+
+          if(booking[3] == booking_id){
+            day = `<li class="activeP">${i}</li>`
+          } else {
+            console.log(booking[3]);
+            console.log(booking_id);
+            day = `<li class="active">${i}</li>`
+          }
+        } else {
+
+          if(booking[3] == booking_id){
+            day = `<li class="presentBooking">${i}</li>`
+          } else {
+            day = `<li class="active_un">${i}</li>`
+          }
+        }
+
+
+      } 
+    });
+    selected.forEach((item) => {
+      if(sameDate(item,date)){
+        day = `<li class="free${id} selected" id="${i}">${i}</li>`;
+      }
+    });
+    document.getElementById(`days${id}`).insertAdjacentHTML('beforeend', day)
+  }
+  const array = document.getElementsByClassName(`free${id}`);
+
+  document.getElementById(`${prevId}`).addEventListener("click", () => {
+    hello(a, id, getPrev(dateI), selected, booking_id)
+  }, false);
+  document.getElementById(`${nextId}`).addEventListener("click", () => {
+    hello(a, id, getNext(dateI), selected, booking_id)
+  }, false);
+}
+</script>
+
 
 

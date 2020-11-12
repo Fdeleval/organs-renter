@@ -1,3 +1,9 @@
+
+
+
+
+
+
 <%= simple_form_for @booking, {url: "/organs/#{@booking.organ.id}/bookings/#{@booking.user.id}"} do |f| %>
   <%= f.input :accepted, type: :boolean%>
   <%= f.hidden_field :id  %>
@@ -5,26 +11,26 @@
 <% end %>
 <div id="avcal<%=@booking.organ.id%>" class="calbox"></div>
 <% bookings = [] %>
-<% @booking.organ.booking.each do |b| %>
+<% @booking.organ.bookings.each do |b| %>
   <% bookings.push([[b.date_start.year, b.date_start.month, b.date_start.day],[b.date_end.year, b.date_end.month, b.date_end.day],[b.accepted],[b.id]]) %>
 <% end %>
-
-<input type = "button" onclick = "hello1(<%= bookings%>, <%= @booking.organ.id%>, 'today', <%= []%>, <%= @booking.id %>)" value = "Show calendar"> 
-
-
-
-
-
-
-
-
-
-
-
-
+<div onload="hello1(<%= bookings%>, <%= @booking.organ.id%>, 'today', <%= []%>, <%= @booking.id %>)"></div>
+<input type = "button" onclick ="hello1(<%= bookings%>, <%= @booking.organ.id%>, 'today', <%= []%>, <%= @booking.id %>)"  value = "Show calendar" id='calcall'> 
 
 
 <script>
+function eventFire(el, etype){
+  if (el.fireEvent) {
+    el.fireEvent('on' + etype);
+  } else {
+    var evObj = document.createEvent('Events');
+    evObj.initEvent(etype, true, false);
+    el.dispatchEvent(evObj);
+  }
+}
+window.onload = function() {
+  eventFire(document.getElementById('calcall'), 'click');
+};
 var clicker = 0
 const months = [
     ['January', 31],
@@ -45,7 +51,6 @@ function hello(a, id, day, selected){
   // a[x][0] is the date start array: year, month, day
   // a[x][1] is the date end array: year, month, day
   let bookings = [];
-  console.log(selected);
   a.forEach((item) => {
     const start = new Date(`${item[0][0]},${item[0][1]},${item[0][2]}`)
     const end = new Date(`${item[1][0]},${item[1][1]},${item[1][2]}`)
@@ -75,7 +80,6 @@ function hello1(a, id, day, selected, booking_id){
     document.getElementById(`booking_accepted`).addEventListener("click", () => {
       if(clicker == 0){
         clicker = 1
-        console.log('hey');
       } else {
         clicker = 0
       }
@@ -283,8 +287,6 @@ function calendar1(avcal, id, bookings, dateI, a, selected, booking_id){
           if(booking[3] == booking_id){
             day = `<li class="activeP">${i}</li>`
           } else {
-            console.log(booking[3]);
-            console.log(booking_id);
             day = `<li class="active">${i}</li>`
           }
         } else {

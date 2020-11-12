@@ -1,15 +1,31 @@
-<h1>Looking for an organ <%= current_user.fullname%>?</h1>
 
-<!-- [...] -->
-<%= form_tag organs_path, method: :get do %>
-  <%= text_field_tag :query,
-    params[:query],
-    class: "form-control",
-    placeholder: "Find via an organ or via an email"
-  %>
-  <%= submit_tag "Search", class: "btn btn-primary" %>
-<% end %>
+<div class="text-center">
+  <h1>Looking for an organ?</h1>
+
+  <!-- [...] -->
+
+  <%= form_tag organs_path, class: 'form-inline', method: :get do %>
+    <div class="form-group centered">
+      <%= text_field_tag :query,
+        params[:query],
+        class: "form-control search-input",
+        placeholder: "Find an organ"
+      %>
+      <%= submit_tag "Search", class: "btn btn-primary search-submit" %>
+    </div>
+  <% end %>
+</div>
+
 <!-- the list of movies -->
+
+<ul class="list-inline">
+  <li class="list-inline-item">
+    <a href="#"><i class="fas fa-list-ul"></i> List</a>
+  </li>
+  <li class="list-inline-item">|</li>
+  <li class="list-inline-item"><a href="#"><i class="fas fa-map-marked-alt"></i> Map</a></li>
+</ul>
+
 
 <div class="cards">
   <%@organs.each do |organ|%>
@@ -45,3 +61,10 @@
     <%end%>
   <%end%>
 </div>
+
+<div id="map"
+  style="width: 100%; height: 80vh;"
+  data-markers="<%= @markers.to_json %>"
+  data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+</div>
+

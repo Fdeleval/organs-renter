@@ -14,6 +14,13 @@ class OrgansController < ApplicationController
       @user = current_user
       # flash[:alert] = "Organ not found."
     end
+
+    @markers = User.all.geocoded.map do |flat|
+      {
+        lat: flat.latitude,
+        lng: flat.longitude
+      }
+    end
   end
 
   def show

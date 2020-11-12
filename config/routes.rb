@@ -13,9 +13,11 @@ Rails.application.routes.draw do
   get  '/faqs', to: "pages#faqs"
   get  '/who', to: "pages#who"
 
+
+
   resources :organs do
     resources :bookings, only: [:new, :create, :edit, :update]
   end
-  resources :bookings, only: [:destroy, :index]
+  resources :bookings, only: [:destroy, :index, :create]
 
 end

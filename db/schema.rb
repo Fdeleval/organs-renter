@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2020_11_11_154312) do
     t.bigint "user_id", null: false
     t.datetime "date_start", null: false
     t.datetime "date_end", null: false
+    t.boolean "accepted", default: false
     t.index ["organ_id"], name: "index_bookings_on_organ_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end

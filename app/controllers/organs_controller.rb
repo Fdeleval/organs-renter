@@ -2,7 +2,7 @@ class OrgansController < ApplicationController
   before_action :authenticate_user!, except: [:index]
 
   def index
-    @organs = Organ.all
+    @organs = Organ.where("user_id != #{current_user.id}")
     @user = current_user
   end
 

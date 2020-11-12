@@ -1,0 +1,131 @@
+<%= simple_form_for @booking, {url: "/organs/#{@booking.organ.id}/bookings/#{@booking.user.id}"} do |f| %>
+  <%= f.input :accepted%>
+  <%= f.hidden_field :id  %>
+  <%= f.button :submit %>
+<% end %>
+
+<div id="avcal<%=@booking.organ.id%>" class="calbox"></div>
+<% bookings = [] %>
+<% @booking.organ.booking.each do |b| %>
+  <% bookings.push([[b.date_start.year, b.date_start.month, b.date_start.day],[b.date_end.year, b.date_end.month, b.date_end.day],[b.accepted],[b.id]]) %>
+<% end %>
+
+<input type = "button" onclick = "hello(<%= bookings%>, <%= @booking.organ.id%>, 'today', <%= []%>, <%= @booking.id %>)" value = "Show calendar"> 
+
+
+<script>
+const months = [
+    ['January', 31],
+    ['February', 28],
+    ['March', 31],
+    ['April', 30],
+    ['May', 31],
+    ['June', 30],
+    ['July', 31],
+    ['August', 31],
+    ['September', 30],
+    ['October', 31],
+    ['November', 30],
+    ['December', 31]
+  ];
+function hello(a, id, day, selected, booking_id){
+  // a[x][0] is the date start array: year, month, day
+  // a[x][1] is the date end array: year, month, day
+  let bookings = [];
+  console.log(selected);
+  a.forEach((item) => {
+    const start = new Date(`${item[0][0]},${item[0][1]},${item[0][2]}`)
+    const end = new Date(`${item[1][0]},${item[1][1]},${item[1][2]}`)
+    bookings.push([start, end, item[2][0], item[3][0]])
+  });
+
+  avcal = document.getElementById(`avcal${id}`)
+  if (avcal.classList.contains('active') && day == 'today'){
+    avcal.innerHTML = ""
+    avcal.classList.remove('active')
+  } else {
+    date = new Date()
+    if(day != 'today'){
+      avcal.innerHTML = ""
+      date = day
+    }
+    avcal.classList.add('active')
+    calendar(avcal, id, bookings, date, a, selected, booking_id)
+  }
+}
+
+function getNext(date){
+  return new Date(date.getFullYear(), date.getMonth() + 1, 1)
+}
+
+function getPrev(date){
+  return new Date(date.getFullYear(), date.getMonth() - 1, 1)
+}
+
+function calendar(avcal, id, bookings, dateI, a, selected, booking_id){
+  const month = months[dateI.getMonth()]
+  const prevId = getPrev(dateI).toString()
+  const nextId = getNext(dateI).toString()
+
+  const top = `
+  <div class="month">
+    <ul>
+      <input type="button" class="prev" id="${prevId}" value="&#10094">
+      <input type="button" class="next" id="${nextId}" value="&#10095">
+      <li>${months[dateI.getMonth()][0]}<br><span style="font-size:18px">${dateI.getFullYear()}</span></li>
+    </ul>
+  </div>
+  <ul class="weekdays">
+    <li>Mo</li>
+    <li>Tu</li>
+    <li>We</li>
+    <li>Th</li>
+    <li>Fr</li>
+    <li>Sa</li>
+    <li>Su</li>
+  </ul>
+  <ul class="days" id="days${id}">`
+  avcal.insertAdjacentHTML('beforeend', top)
+  for (let i = 1; i <= month[1]; i++) {
+    const date = new Date(`${dateI.getFullYear()}, ${month[0]}, ${i}`)
+    let day = `<li class="free${id}" id="${i}">${i}</li>`;
+    bookings.forEach((booking) => {
+      if(date <= booking[1] && date >= booking[0]){
+
+
+        console.log(booking[3]);
+        console.log(booking_id);
+
+        
+        if(booking[2] == true){
+          if(booking[3] == booking_id){
+            day = `<li class="activeP">${i}</li>`
+          } else {
+            day = `<li class="active">${i}</li>`
+          }
+        } else {
+          if(booking[3] == booking_id){
+            day = `<li class="presentBooking">${i}</li>`
+          } else {
+            day = `<li class="active_un">${i}</li>`
+          }
+        }
+      } 
+    });
+    selected.forEach((item) => {
+      if(sameDate(item,date)){
+        day = `<li class="free${id} selected" id="${i}">${i}</li>`;
+      }
+    });
+    document.getElementById(`days${id}`).insertAdjacentHTML('beforeend', day)
+  }
+  const array = document.getElementsByClassName(`free${id}`);
+
+  document.getElementById(`${prevId}`).addEventListener("click", () => {
+    hello(a, id, getPrev(dateI), selected)
+  }, false);
+  document.getElementById(`${nextId}`).addEventListener("click", () => {
+    hello(a, id, getNext(dateI), selected)
+  }, false);
+}
+</script>

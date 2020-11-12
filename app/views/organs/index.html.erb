@@ -11,7 +11,7 @@
       <li class="available"> <%= organ.available == true ? "Available" : "Not avaiblabe for the moment" %> </li>
       <li>Renting price:<%= organ.price   %>€  </li>
     </ul>
-    <div id="avcal<%=organ.id%>" class="calbox"></div>
+          <div id="avcal<%=organ.id%>" class="calbox"></div>
           <% bookings = [] %>
           <% organ.booking.each do |b| %>
             <% bookings.push([[b.date_start.year, b.date_start.month, b.date_start.day],[b.date_end.year, b.date_end.month, b.date_end.day],[b.accepted]]) %>

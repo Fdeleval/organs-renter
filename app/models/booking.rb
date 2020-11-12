@@ -1,6 +1,6 @@
 class Booking < ApplicationRecord
   belongs_to :organ
-  # has_one :organ
+  belongs_to :user
   has_one :review
 
 

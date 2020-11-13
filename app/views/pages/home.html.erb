@@ -1,53 +1,120 @@
-<h1>User dashboard</h1>
+<h1>My dashboard | User: <%= current_user.fullname %></h1>
 
 <% if user_signed_in? && current_user.photo.attached? %>
   <%= cl_image_tag current_user.photo.key, height: 300, width: 400, crop: :fill %>
 <% end %>
 
+<ul class="list-inline link">
+  <li class="list-inline-item"><%= link_to "All organs", organs_path %></li>
+  <li class="list-inline-item">|</li>
+  <li class="list-inline-item"><%= link_to "My Organs", my_organs_path(@user.id) %></li>
+</ul>
 
-<%= link_to "All organs", organs_path %> | <%= link_to "My Organs", my_organs_path(@user.id) %>
 
-<h3>New rentings (not accepted yet)</h3>
-<div class="rentings">
-  <ul> <% @rentings_new.each do |booking| %>
-    <li>Renters name: <%= booking.user.fullname  %> </li>
-    <li>Owners name: <%= booking.organ.user.fullname  %> </li>
-    <ul>
-      <li> Organ's type: <%= booking.organ.organ_type   %> </li>
-      <li>Description: <%= booking.organ.description  %> </li>
-      <li class="available"> <%= booking.organ.available == true ? "Available" : "Not avaiblabe for the moment" %> </li>
-      <li>Renting price:<%= booking.organ.price   %>€  </li>
-      <a href="/organs/<%= booking.organ.id%>/bookings/<%= booking.id%>/edit">View this booking</a>
-    </ul>
+<h3>Pending request(s) for renting: </h3>
+<div class="rentings cards">
+   <% @rentings_new.each do |booking| %>
+   <div class="card-trip">
+     <div class="card-img" style="background-image: url(
+          <% if booking.organ.user.photo.attached? %>
+            <%= cl_image_path organ.user.photo.key, height: 300, width: 400, crop: :fill %>
+          <%else%>
+            <%='https://res.cloudinary.com/rommcb/image/upload/v1605186478/person-placeholder.jpg' %>
+          <% end %>
+        );">
+      </div>
+      <div class="card-trip-infos">
+        <div>
+          <h2>Renters name: <%= booking.user.fullname  %></h2>
+            <p>Owners name: <%= booking.organ.user.fullname  %></p>
+            <p>Description: <%= booking.organ.description  %></p>
+            <p><%= booking.organ.available == true ? "Available" : "Not avaiblabe for the moment" %></p>
+        </div>
+        <h2 class="card-trip-pricing"><%= booking.organ.price %>€ /day</h2>
+        <% if booking.organ.organ_type == 'heart' %>
+          <%= cl_image_tag("human-organs-icons.jpg", class: 'card-trip-user avatar-bordered', :effect=>"grayscale", :transformation=>[{:x=>775, :y=>25, :width=>200, :height=>200, :crop=>"crop"},{:width=>40, :height=>40, :crop=>"scale"}])%>
+        <% end %>
+        <% if booking.organ.organ_type == 'lungs' %>
+          <%= cl_image_tag("human-organs-icons.jpg", class: 'card-trip-user avatar-bordered', :effect=>"grayscale", :transformation=>[{:x=>25, :y=>766, :width=>199, :height=>199, :crop=>"crop"},{:width=>40, :height=>40, :crop=>"scale"}])%>
+        <% end %>
+        <% if booking.organ.organ_type == 'brain' %>
+          <%= cl_image_tag("human-organs-icons.jpg", class: 'card-trip-user avatar-bordered', :effect=>"grayscale", :transformation=>[{:x=>775, :y=>522, :width=>200, :height=>200, :crop=>"crop"},{:width=>40, :height=>40, :crop=>"scale"}])%>
+        <% end %>
+      </div>
+  </div>
   <% end %>
-  </ul>
 </div>
-<p>---------------------------------------------------</p>
-<h3>Old rentings (already accepted)</h3>
-<div class="rentings">
-  <ul> <% @rentings_old.each do |booking| %>
-    <li>Renters name: <%= booking.user.fullname  %> </li>
-    <li>Owners name: <%= booking.organ.user.fullname  %> </li>
-    <ul>
-      <li> Organ's type: <%= booking.organ.organ_type   %> </li>
-      <li>Description: <%= booking.organ.description  %> </li>
-      <li class="available"> <%= booking.organ.available == true ? "Available" : "Not avaiblabe for the moment" %> </li>
-      <li>Renting price:<%= booking.organ.price   %>€  </li>
-    </ul>
+<!-- <p>---------------------------------------------------</p> -->
+<h3>Request(s) approved: </h3>
+<div class="rentings cards">
+   <% @rentings_old.each do |booking| %>
+   <div class="card-trip">
+     <div class="card-img" style="background-image: url(
+          <% if booking.organ.user.photo.attached? %>
+            <%= cl_image_path organ.user.photo.key, height: 300, width: 400, crop: :fill %>
+          <%else%>
+            <%='https://res.cloudinary.com/rommcb/image/upload/v1605186478/person-placeholder.jpg' %>
+          <% end %>
+        );">
+      </div>
+      <div class="card-trip-infos">
+        <div>
+          <h2>Renters name: <%= booking.user.fullname  %></h2>
+            <p>Owners name: <%= booking.organ.user.fullname  %></p>
+            <p>Description: <%= booking.organ.description  %></p>
+            <p><%= booking.organ.available == true ? "Available" : "Not avaiblabe for the moment" %></p>
+        </div>
+        <h2 class="card-trip-pricing"><%= booking.organ.price %>€ /day</h2>
+        <% if booking.organ.organ_type == 'heart' %>
+          <%= cl_image_tag("human-organs-icons.jpg", class: 'card-trip-user avatar-bordered', :effect=>"grayscale", :transformation=>[{:x=>775, :y=>25, :width=>200, :height=>200, :crop=>"crop"},{:width=>40, :height=>40, :crop=>"scale"}])%>
+        <% end %>
+        <% if booking.organ.organ_type == 'lungs' %>
+          <%= cl_image_tag("human-organs-icons.jpg", class: 'card-trip-user avatar-bordered', :effect=>"grayscale", :transformation=>[{:x=>25, :y=>766, :width=>199, :height=>199, :crop=>"crop"},{:width=>40, :height=>40, :crop=>"scale"}])%>
+        <% end %>
+        <% if booking.organ.organ_type == 'brain' %>
+          <%= cl_image_tag("human-organs-icons.jpg", class: 'card-trip-user avatar-bordered', :effect=>"grayscale", :transformation=>[{:x=>775, :y=>522, :width=>200, :height=>200, :crop=>"crop"},{:width=>40, :height=>40, :crop=>"scale"}])%>
+        <% end %>
+      </div>
+  </div>
   <% end %>
-  </ul>
 </div>
-<p>---------------------------------------------------</p>
-<h3>Organs that i have booked</h3>
-<div class="bookings">
-  <ul> <% @bookings.each do |booking| %>
-    <li>owners name: <%= booking.organ.user.fullname  %> </li>
-    <ul>
-      <li> Organ's type: <%= booking.organ.organ_type   %> </li>
-      <li>Description: <%= booking.organ.description  %> </li>
-      <li class="available"> <%= booking.organ.available == true ? "Available" : "Not avaiblabe for the moment" %> </li>
-      <li>Renting price:<%= booking.organ.price   %>€  </li>
-    </ul>
+<!-- <p>---------------------------------------------------</p> -->
+<h3>My current bookings: </h3>
+<div class="bookings cards">
+  <% @bookings.each do |booking| %>
+   <div class="card-trip">
+     <div class="card-img" style="background-image: url(
+          <% if booking.organ.user.photo.attached? %>
+            <%= cl_image_path organ.user.photo.key, height: 300, width: 400, crop: :fill %>
+          <%else%>
+            <%='https://res.cloudinary.com/rommcb/image/upload/v1605186478/person-placeholder.jpg' %>
+          <% end %>
+        );">
+      </div>
+      <div class="card-trip-infos">
+        <div>
+          <h2>Renters name: <%= booking.user.fullname  %></h2>
+            <p>Owners name: <%= booking.organ.user.fullname  %></p>
+            <p>Description: <%= booking.organ.description  %></p>
+            <p><%= booking.organ.available == true ? "Available" : "Not avaiblabe for the moment" %></p>
+        </div>
+        <h2 class="card-trip-pricing"><%= booking.organ.price %>€ /day</h2>
+        <% if booking.organ.organ_type == 'heart' %>
+          <%= cl_image_tag("human-organs-icons.jpg", class: 'card-trip-user avatar-bordered', :effect=>"grayscale", :transformation=>[{:x=>775, :y=>25, :width=>200, :height=>200, :crop=>"crop"},{:width=>40, :height=>40, :crop=>"scale"}])%>
+        <% end %>
+        <% if booking.organ.organ_type == 'lungs' %>
+          <%= cl_image_tag("human-organs-icons.jpg", class: 'card-trip-user avatar-bordered', :effect=>"grayscale", :transformation=>[{:x=>25, :y=>766, :width=>199, :height=>199, :crop=>"crop"},{:width=>40, :height=>40, :crop=>"scale"}])%>
+        <% end %>
+        <% if booking.organ.organ_type == 'brain' %>
+          <%= cl_image_tag("human-organs-icons.jpg", class: 'card-trip-user avatar-bordered', :effect=>"grayscale", :transformation=>[{:x=>775, :y=>522, :width=>200, :height=>200, :crop=>"crop"},{:width=>40, :height=>40, :crop=>"scale"}])%>
+        <% end %>
+      </div>
+  </div>
   <% end %>
-  </ul>
 </div>
+
+<ul class="list-inline link">
+  <li class="list-inline-item"><%= link_to "All organs", organs_path %></li>
+  <li class="list-inline-item">|</li>
+  <li class="list-inline-item"><%= link_to "My Organs", my_organs_path(@user.id) %></li>
+</ul>

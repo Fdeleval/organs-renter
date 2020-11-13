@@ -270,10 +270,10 @@ function calendar(avcal, id, bookings, dateI, a, selected, monthsL, clickable){
   }
 
   document.getElementById(`${prevId}`).addEventListener("click", () => {
-    hello(a, id, getPrev(dateI), selected)
+    hello(a, id, getPrev(dateI), selected, clickable)
   }, false);
   document.getElementById(`${nextId}`).addEventListener("click", () => {
-    hello(a, id, getNext(dateI), selected)
+    hello(a, id, getNext(dateI), selected, clickable)
   }, false);
 }
 

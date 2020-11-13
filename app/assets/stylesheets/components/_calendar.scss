@@ -81,17 +81,6 @@
   color: #777;
 }
 
-/* Highlight the "current" day */
-.days .active {
-  background-color: darkred;
-  color: white !important
-}
-
-.days .active_un {
-  background-color: lightcoral;
-  color: white !important
-}
-
 .calbox {
   width: 30%;
 }
@@ -112,16 +101,25 @@
   display: none;
 }
 
+#calcall {
+  display: none;
+}
 
 .days .presentBooking {
-  background-color: lightskyblue;
+  background-color: rgb(65, 160, 184);
 }
 
 .days .activeP {
-  background-color: blue;
+  background-color: rgb(39, 55, 124);
   color: white;
 }
 
-#calcall {
-  display: none;
+.days .active {
+  background-color: rgb(161, 33, 33);
+  color: white !important
+}
+
+.days .active_un {
+  background-color: rgb(212, 135, 116);
+  color: white !important
 }

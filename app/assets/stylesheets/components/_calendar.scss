@@ -1,4 +1,9 @@
 /* Month header */
+.calbox {
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
 .month {
   padding: 25px 25px;
   width: 100%;
@@ -62,7 +67,7 @@
 /* Days (1-31) */
 .days {
   width: 100%;
-  padding: 0 0 5px 10px;
+  padding: 12px 0px 12px 10px;
   background: #eee;
   margin: 0;
   border-radius: 0 0 10px 10px;
@@ -115,11 +120,11 @@
 }
 
 .days .active {
-  background-color: rgb(161, 33, 33);
+  background-color: rgb(145, 63, 63);
   color: white !important
 }
 
 .days .active_un {
-  background-color: rgb(212, 135, 116);
+  background-color: rgb(241, 124, 124);
   color: white !important
 }

@@ -20,7 +20,7 @@
     </form>
 
 
- <input type = "button" onclick = "hello(<%= bookings%>, <%= @organ.id%>, 'today', <%= []%>)" value = "Show calendar" id='calcall'>
+ <input type = "button" onclick = "hello(<%= bookings%>, <%= @organ.id%>, 'today', <%= []%>), 1" value = "Show calendar" id='calcall'>
 
 <script>
 
@@ -261,9 +261,12 @@ function calendar(avcal, id, bookings, dateI, a, selected, monthsL){
     document.getElementById(`days${id}`).insertAdjacentHTML('beforeend', day)
   }
   const array = document.getElementsByClassName(`free${id}`);
-  for (let index = 0; index < array.length; index += 1) {
-    const element = array[index];
-    element.addEventListener("click", () => { activate(element, selected, dateI, id); }, false);
+  if(clickable == 1) {
+    const array = document.getElementsByClassName(`free${id}`);
+    for (let index = 0; index < array.length; index += 1) {
+      const element = array[index];
+      element.addEventListener("click", () => { activate(element, selected, dateI, id); }, false);
+    }
   }
 
   document.getElementById(`${prevId}`).addEventListener("click", () => {

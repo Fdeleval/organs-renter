@@ -16,19 +16,40 @@ class OrgansController < ApplicationController
         "
       organs = Organ.joins(:user).where(sql_query, query: params[:query])
       @organs = remove_user_unavailable_organs(organs, u_id)
+
+      @users = [] 
+      @organs.each do |organ|
+        @users << organ.user unless @users.include?(organ.user) || organ.available == false
+      end
+
+      @markers = @users.map do |user|
+        {
+          lat: user.latitude,
+          lng: user.longitude,
+          infoWindow: render_to_string(partial: "info_window", locals: { user: user })
+        }
+      end
     else
       organs = Organ.all
       @organs = remove_user_unavailable_organs(organs, u_id)
       @user = current_user
       # flash[:alert] = "Organ not found."
+      @users = [] 
+      @organs.each do |organ|
+          @users << organ.user
+      end
+
+      @markers = @users.map do |user|
+        {
+          lat: user.latitude,
+          lng: user.longitude,
+          infoWindow: render_to_string(partial: "info_window", locals: { user: user })
+        }
+      end
     end
 
-    @markers = User.all.geocoded.map do |flat|
-      {
-        lat: flat.latitude,
-        lng: flat.longitude
-      }
-    end
+    
+
   end
 
   def myOrgans()

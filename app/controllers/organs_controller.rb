@@ -98,9 +98,8 @@ class OrgansController < ApplicationController
   end
 
   def create
-    @organ = Organ.new(organ_params)
-    print @organ
-    @organ.save
+    organ = Organ.new(organ_params)
+    organ.save
     redirect_to my_organs_path(current_user.id)
   end
 

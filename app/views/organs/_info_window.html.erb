@@ -2,9 +2,7 @@
 
 <% @organsuser = Organ.where("user_id= #{user.id} and available = true") %>
 
-<%= link_to "See user", my_organs_path(@organsuser), class: 'btn btn-ghost-white learn-more' %>
-
-<p>Available organs: <strong>
+<p>organ(s): <strong>
 <% @organsuser.each do |organ| %>
  <%= organ.organ_type %>
 <%end%>

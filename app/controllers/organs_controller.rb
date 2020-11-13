@@ -15,10 +15,10 @@ class OrgansController < ApplicationController
         OR users.fullname @@ :query \
         "
       organs = Organ.joins(:user).where(sql_query, query: params[:query])
-      @organs = remove_user_organs(organs, u_id)
+      @organs = remove_user_unavailable_organs(organs, u_id)
     else
       organs = Organ.all
-      @organs = remove_user_organs(organs, u_id)
+      @organs = remove_user_unavailable_organs(organs, u_id)
       @user = current_user
       # flash[:alert] = "Organ not found."
     end
@@ -31,10 +31,15 @@ class OrgansController < ApplicationController
     end
   end
 
-  def remove_user_organs(organs, u_id)
+  def myOrgans()
+    @organs = Organ.where(user_id: current_user.id)
+    @user = current_user
+  end
+
+  def remove_user_unavailable_organs(organs, u_id)
     org = []
     organs.each do |item|
-      if item.user.id != u_id
+      if item.user.id != u_id || item.available != false
         org.push(item)
       end
     end

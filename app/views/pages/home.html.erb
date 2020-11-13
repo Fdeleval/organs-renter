@@ -1,15 +1,15 @@
-<h1>Hello I'am the homepage</h1>
+<h1>User dashboard</h1>
 
 <% if user_signed_in? && current_user.photo.attached? %>
   <%= cl_image_tag current_user.photo.key, height: 300, width: 400, crop: :fill %>
 <% end %>
 
 
-<%= link_to "All organs", organs_path %> | <%= link_to "My booking(s)", bookings_path(@user) %>
+<%= link_to "All organs", organs_path %> | <%= link_to "My Organs", my_organs_path(@user.id) %>
 
-
+<h3>New rentings (not accepted yet)</h3>
 <div class="rentings">
-  <ul> <% @rentings.each do |booking| %>
+  <ul> <% @rentings_new.each do |booking| %>
     <li>Renters name: <%= booking.user.fullname  %> </li>
     <li>Owners name: <%= booking.organ.user.fullname  %> </li>
     <ul>
@@ -23,6 +23,22 @@
   </ul>
 </div>
 <p>---------------------------------------------------</p>
+<h3>Old rentings (already accepted)</h3>
+<div class="rentings">
+  <ul> <% @rentings_old.each do |booking| %>
+    <li>Renters name: <%= booking.user.fullname  %> </li>
+    <li>Owners name: <%= booking.organ.user.fullname  %> </li>
+    <ul>
+      <li> Organ's type: <%= booking.organ.organ_type   %> </li>
+      <li>Description: <%= booking.organ.description  %> </li>
+      <li class="available"> <%= booking.organ.available == true ? "Available" : "Not avaiblabe for the moment" %> </li>
+      <li>Renting price:<%= booking.organ.price   %>€  </li>
+    </ul>
+  <% end %>
+  </ul>
+</div>
+<p>---------------------------------------------------</p>
+<h3>Organs that i have booked</h3>
 <div class="bookings">
   <ul> <% @bookings.each do |booking| %>
     <li>owners name: <%= booking.organ.user.fullname  %> </li>

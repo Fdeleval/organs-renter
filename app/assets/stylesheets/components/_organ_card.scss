@@ -6,6 +6,7 @@
 }
 
 .card-trip > .card-img {
+  transition: background-color 0.5s ease;
   height: 200px;
   width: 100%;
   background-size: cover;
@@ -25,6 +26,8 @@
 .my-org:hover .card-img {
   background: linear-gradient(45deg, #3e93cc, #ad48cc) !important;
 }
+
+
 
 .card-trip h2 {
   font-size: 16px;

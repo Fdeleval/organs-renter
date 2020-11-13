@@ -12,7 +12,18 @@
 }
 
 .card-trip:hover .card-img {
-  background: linear-gradient(45deg, #cd0a0a, #ec0101) !important;
+  background: linear-gradient(45deg, #d34343, #750c0c) !important;
+}
+
+
+.my-org > .card-img {
+  height: 200px;
+  width: 100%;
+  background-size: cover;
+}
+
+.my-org:hover .card-img {
+  background: linear-gradient(45deg, #3e93cc, #ad48cc) !important;
 }
 
 .card-trip h2 {

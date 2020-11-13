@@ -2,14 +2,13 @@
 
 
 
-<!-- How to remove hte hoover??? -->
+<h1>My personal organs</h1>
 
 <div class="cards">
   <%@organs.each do |organ|%>
     <% if organ.available == true %>
-      <div class="card-trip <%= organ.organ_type%>">
-        <%= link_to "New organ", new_organ_path, class: 'btn btn-flat book-now' %>
-        <%= link_to "More details", organ_path(organ.id), class: 'btn btn-ghost-white learn-more' %>
+      <div class="card-trip <%= organ.organ_type%> my-org">
+      <%= link_to "Organ Info", edit_organ_path(organ.id), class: 'btn btn-flat book-now' %>
         <div class="card-img" style="background-image: url(
           <% if organ.user.photo.attached? %>
             <%= cl_image_path organ.user.photo.key, height: 300, width: 400, crop: :fill %>

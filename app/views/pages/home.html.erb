@@ -53,8 +53,8 @@
    <% @rentings_old.each do |booking| %>
    <div class="card-trip">
      <div class="card-img no-color" style="background-image: url(
-          <% if booking.organ.user.photo.attached? %>
-            <%= cl_image_path organ.user.photo.key, height: 300, width: 400, crop: :fill %>
+          <% if booking.user.photo.attached? %>
+            <%= cl_image_path booking.user.photo.key, height: 300, width: 400, crop: :fill %>
           <%else%>
             <%='https://res.cloudinary.com/rommcb/image/upload/v1605186478/person-placeholder.jpg' %>
           <% end %>

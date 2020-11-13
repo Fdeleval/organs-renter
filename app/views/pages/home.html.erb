@@ -17,6 +17,7 @@
 <div class="rentings cards">
    <% @rentings_new.each do |booking| %>
    <div class="card-trip">
+      <a href="/organs/<%= booking.organ.id%>/bookings/<%= booking.id%>/edit" class='btn btn-flat book-now' >View this booking</a>
      <div class="card-img" style="background-image: url(
           <% if booking.organ.user.photo.attached? %>
             <%= cl_image_path organ.user.photo.key, height: 300, width: 400, crop: :fill %>

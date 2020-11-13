@@ -17,7 +17,7 @@
       <li>Description: <%= booking.organ.description  %> </li>
       <li class="available"> <%= booking.organ.available == true ? "Available" : "Not avaiblabe for the moment" %> </li>
       <li>Renting price:<%= booking.organ.price   %>€  </li>
-      <a href="/organs/<%= booking.organ.id%>/bookings/<%= booking.user.id%>/edit">View this booking</a>
+      <a href="/organs/<%= booking.organ.id%>/bookings/<%= booking.id%>/edit">View this booking</a>
     </ul>
   <% end %>
   </ul>

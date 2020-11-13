@@ -30,9 +30,9 @@ class BookingsController < ApplicationController
   end
 
   def update
-    booking = Booking.find(params[:booking][:id])
-    booking.accepted = params[:booking][:accepted]
-    booking.save
+    book = Booking.find(params[:booking][:id])
+    book.accepted = params[:booking][:accepted]
+    book.save
     redirect_to("/")
   end
 end

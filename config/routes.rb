@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   # pages
   get  '/home', to: "pages#home", as: :user_root
 
+  get '/home/:user_id', to: "organs#myOrgans", as: :my_organs
+
   # About pages
   get  '/values', to: "pages#values"
   get  '/career', to: "pages#career"

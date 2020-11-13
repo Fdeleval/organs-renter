@@ -1,0 +1,11 @@
+<h1>Hey</h1>
+
+<ul> <% @organs.each do |organ| %>
+  <li>Owners name: <%= organ.user.fullname  %> </li>
+  <ul>
+    <li> Organ's type: <%= organ.organ_type   %> </li>
+    <li>Description: <%= organ.description  %> </li>
+    <li class="available"> <%= organ.available == true ? "Available" : "Not avaiblabe for the moment" %> </li>
+    <li>Renting price:<%= organ.price   %>€  </li>
+  </ul>
+<% end %>

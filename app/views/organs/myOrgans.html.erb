@@ -7,5 +7,8 @@
     <li>Description: <%= organ.description  %> </li>
     <li class="available"> <%= organ.available == true ? "Available" : "Not avaiblabe for the moment" %> </li>
     <li>Renting price:<%= organ.price   %>€  </li>
+    <%= link_to "Edit", edit_organ_path(organ.id) %>
   </ul>
 <% end %>
+
+<%= link_to "Add a new organ", new_organ_path %>

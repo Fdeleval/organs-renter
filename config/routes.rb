@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # pages
   get  '/home', to: "pages#home", as: :user_root
 
-  get '/home/:user_id', to: "organs#myOrgans", as: :my_organs
+
 
   # About pages
   get  '/values', to: "pages#values"
@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   resources :organs do
     resources :bookings, only: [:new, :create, :edit, :update]
   end
+  get '/home/:user_id', to: "organs#myOrgans", as: :my_organs
+  
   resources :bookings, only: [:destroy, :index, :create]
 
 

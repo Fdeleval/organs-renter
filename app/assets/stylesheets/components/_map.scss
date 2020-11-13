@@ -27,28 +27,9 @@
   font-size: 35px;
 }
 
-.mapboxgl-popup-content:hover {
-  background: linear-gradient(45deg, #cd0a0a, #ec0101) !important;
-  p {
-    opacity:0;
-  }
-  h3 {
-    opacity:0;
-  }
-}
-
-.mapboxgl-popup-content:hover .learn-more {
-  z-index:1000;
-  opacity: 0.9 !important;
-  &:hover {
-    opacity: 1 !important;
-  }
-}
 
 .mapboxgl-popup-close-button {
   position: absolute;
   right: 5px;
   top: 13px;
-  color: white;
-  opacity: 0.9 !important;
 }

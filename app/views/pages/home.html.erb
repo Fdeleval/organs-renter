@@ -1,8 +1,6 @@
-<h1>My dashboard | User: <%= current_user.fullname %></h1>
-
-<% if user_signed_in? && current_user.photo.attached? %>
-  <%= cl_image_tag current_user.photo.key, height: 300, width: 400, crop: :fill %>
-<% end %>
+<h1>My dashboard | <% if user_signed_in? && current_user.photo.attached? %>
+  <%= cl_image_tag current_user.photo.key, height: 300, width: 400, class: 'avatar', crop: :fill %>
+<% end %> <%= current_user.fullname %></h1>
 
 <ul class="list-inline link">
   <li class="list-inline-item"><%= link_to "All organs", organs_path %></li>
@@ -54,7 +52,7 @@
    <div class="card-trip">
      <div class="card-img no-color" style="background-image: url(
           <% if booking.organ.user.photo.attached? %>
-            <%= cl_image_path organ.user.photo.key, height: 300, width: 400, crop: :fill %>
+            <%= cl_image_path booking.organ.user.photo.key, height: 300, width: 400, crop: :fill %>
           <%else%>
             <%='https://res.cloudinary.com/rommcb/image/upload/v1605186478/person-placeholder.jpg' %>
           <% end %>

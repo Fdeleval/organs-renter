@@ -1,11 +1,39 @@
-<h1>Hey</h1>
 
-<ul> <% @organs.each do |organ| %>
-  <li>Owners name: <%= organ.user.fullname  %> </li>
-  <ul>
-    <li> Organ's type: <%= organ.organ_type   %> </li>
-    <li>Description: <%= organ.description  %> </li>
-    <li class="available"> <%= organ.available == true ? "Available" : "Not avaiblabe for the moment" %> </li>
-    <li>Renting price:<%= organ.price   %>€  </li>
-  </ul>
-<% end %>
+
+
+
+<h1>My personal organs</h1>
+
+<div class="cards">
+  <%@organs.each do |organ|%>
+    <% if organ.available == true %>
+      <div class="card-trip <%= organ.organ_type%> my-org">
+      <%= link_to "Organ Info", edit_organ_path(organ.id), class: 'btn btn-flat book-now' %>
+        <div class="card-img" style="background-image: url(
+          <% if organ.user.photo.attached? %>
+            <%= cl_image_path organ.user.photo.key, height: 300, width: 400, crop: :fill %>
+          <%else%>
+            <%='https://res.cloudinary.com/rommcb/image/upload/v1605186478/person-placeholder.jpg' %>
+          <% end %>
+        );">
+        </div>
+        <div class="card-trip-infos">
+          <div>
+            <h2>The <%= organ.organ_type%> of <%= organ.user.fullname %></h2>
+          <p><%= organ.description  %></p>
+          </div>
+          <h2 class="card-trip-pricing"><%= organ.price %>€ /day</h2>
+          <% if organ.organ_type == 'heart' %>
+            <%= cl_image_tag("human-organs-icons.jpg", class: 'card-trip-user avatar-bordered', :effect=>"grayscale", :transformation=>[{:x=>775, :y=>25, :width=>200, :height=>200, :crop=>"crop"},{:width=>40, :height=>40, :crop=>"scale"}])%>
+          <% end %>
+          <% if organ.organ_type == 'lungs' %>
+            <%= cl_image_tag("human-organs-icons.jpg", class: 'card-trip-user avatar-bordered', :effect=>"grayscale", :transformation=>[{:x=>25, :y=>766, :width=>199, :height=>199, :crop=>"crop"},{:width=>40, :height=>40, :crop=>"scale"}])%>
+          <% end %>
+          <% if organ.organ_type == 'brain' %>
+            <%= cl_image_tag("human-organs-icons.jpg", class: 'card-trip-user avatar-bordered', :effect=>"grayscale", :transformation=>[{:x=>775, :y=>522, :width=>200, :height=>200, :crop=>"crop"},{:width=>40, :height=>40, :crop=>"scale"}])%>
+          <% end %>
+        </div>
+      </div>
+    <%end%>
+  <%end%>
+</div>

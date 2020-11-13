@@ -24,7 +24,10 @@
   </li>
   <li class="list-inline-item">|</li>
   <li class="list-inline-item" ><a href="#" id="maplink"><i class="fas fa-map-marked-alt"></i> Map</a></li>
+  <li class="list-inline-item">|</li>
+  <li class="list-inline-item"><%= link_to "My Dashboard", user_root_path%></li>
 </ul>
+
 
 
 
@@ -32,7 +35,7 @@
 <div class="cards">
   <%@organs.each do |organ|%>
     <% if organ.available == true %>
-      <div class="card-trip">
+      <div class="card-trip <%= organ.organ_type%>">
       <%= link_to "Book now!", organ_path(organ.id), class: 'btn btn-flat book-now' %>
       <%= link_to "More details", organ_path(organ.id), class: 'btn btn-ghost-white learn-more' %>
         <div class="card-img" style="background-image: url(
@@ -107,3 +110,4 @@
   });
 
 </script>
+

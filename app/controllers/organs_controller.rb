@@ -90,7 +90,7 @@ class OrgansController < ApplicationController
     organ.available = params[:organ][:available]
     organ.save
 
-    redirect_to organ_path
+    redirect_to my_organs_path(current_user.id)
   end
 
   def new
@@ -101,7 +101,7 @@ class OrgansController < ApplicationController
     @organ = Organ.new(organ_params)
     print @organ
     @organ.save
-    redirect_to organ_path(@organ)
+    redirect_to my_organs_path(current_user.id)
   end
 
   def organ_params

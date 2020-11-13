@@ -73,12 +73,8 @@
 </div>
 
 <script>
-  const maplink = document.getElementById('maplink');
-  const listlink = document.getElementById('listlink');
-  const map = document.getElementsByClassName('map')[0];
-  const cards = document.querySelector('.cards');
 
-  maplink.addEventListener("click", (event) => {
+  document.getElementById('maplink').addEventListener("click", (event) => {
     // Do something (callback)
     event.preventDefault();
     
@@ -87,26 +83,28 @@
     listlink.classList.remove("active");
 
     // add / remove the class .hide
-    map.classList.remove("hide");
-    cards.classList.add("hide");
+
+    document.getElementsByClassName('map')[0].classList.remove("hide"); 
+    document.querySelector('.cards').classList.add("hide");
+    
 
   });
 
-  listlink.addEventListener("click", (event) => {
+  document.getElementById('listlink').addEventListener("click", (event) => {
     // Do something (callback)
     event.preventDefault();
 
     // add / remove the class .active
     event.currentTarget.classList.add("active");
-    maplink.classList.remove("active");
+    document.getElementById('maplink').classList.remove("active");
 
     // add / remove the class .hide
-    map.classList.add("hide");
-    cards.classList.remove("hide");
+    document.getElementsByClassName('map')[0].classList.add("hide");
+    document.querySelector('.cards').classList.remove("hide");
   });
 
   window.addEventListener("load", (event) => {
-    map.classList.add("hide");
+    document.getElementsByClassName('map')[0].classList.add("hide");
   });
 
 </script>

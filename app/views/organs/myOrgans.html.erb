@@ -4,6 +4,13 @@
 
 <h1>My personal organs</h1>
 
+<ul class="list-inline link">
+  <li class="list-inline-item"><%= link_to "All organs", organs_path %></li>
+  <li class="list-inline-item">|</li>
+  <li class="list-inline-item"><%= link_to "Add a new organ", new_organ_path %></li>
+</ul>
+
+
 <div class="cards">
   <%@organs.each do |organ|%>
     <% if organ.available == true %>

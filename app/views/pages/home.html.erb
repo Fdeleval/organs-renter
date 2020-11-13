@@ -8,6 +8,8 @@
   <li class="list-inline-item"><%= link_to "All organs", organs_path %></li>
   <li class="list-inline-item">|</li>
   <li class="list-inline-item"><%= link_to "My Organs", my_organs_path(@user.id) %></li>
+  <li class="list-inline-item">|</li>
+  <li class="list-inline-item"><%= link_to "Add a new organ", new_organ_path %></li>
 </ul>
 
 
@@ -15,6 +17,7 @@
 <div class="rentings cards">
    <% @rentings_new.each do |booking| %>
    <div class="card-trip">
+      <a href="/organs/<%= booking.organ.id%>/bookings/<%= booking.id%>/edit" class='btn btn-flat book-now' >View this booking</a>
      <div class="card-img" style="background-image: url(
           <% if booking.organ.user.photo.attached? %>
             <%= cl_image_path organ.user.photo.key, height: 300, width: 400, crop: :fill %>
@@ -117,4 +120,6 @@
   <li class="list-inline-item"><%= link_to "All organs", organs_path %></li>
   <li class="list-inline-item">|</li>
   <li class="list-inline-item"><%= link_to "My Organs", my_organs_path(@user.id) %></li>
+  <li class="list-inline-item">|</li>
+  <li class="list-inline-item"><%= link_to "Add a new organ", new_organ_path %></li>
 </ul>

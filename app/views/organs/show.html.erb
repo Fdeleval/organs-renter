@@ -20,7 +20,7 @@
     </form>
 
 
- <input type = "button" onclick = "hello(<%= bookings%>, <%= @organ.id%>, 'today', <%= []%>), 1" value = "Show calendar" id='calcall'>
+ <input type = "button" onclick = "hello(<%= bookings%>, <%= @organ.id%>, 'today', <%= []%>, <%= 1%>)" value = "Show calendar" id='calcall'>
 
 <script>
 
@@ -44,7 +44,7 @@ window.onload = function() {
 var clicker = 0
 
 eventFire(document.getElementById('calcall'), 'click');
-function hello(a, id, day, selected){
+function hello(a, id, day, selected, clickable){
   // a[x][0] is the date start array: year, month, day
   // a[x][1] is the date end array: year, month, day
   const monthsL = [
@@ -62,7 +62,6 @@ function hello(a, id, day, selected){
     ['December', 31]
   ];
   let bookings = [];
-  console.log(selected);
   a.forEach((item) => {
     const start = new Date(`${item[0][0]},${item[0][1]},${item[0][2]}`)
     const end = new Date(`${item[1][0]},${item[1][1]},${item[1][2]}`)
@@ -81,7 +80,7 @@ function hello(a, id, day, selected){
       date = day
     }
     avcal.classList.add('active')
-    calendar(avcal, id, bookings, date, a, selected, monthsL)
+    calendar(avcal, id, bookings, date, a, selected, monthsL, clickable)
   }
 }
 
@@ -216,7 +215,7 @@ function activate(element, s, dateI, id) {
   }
 }
 
-function calendar(avcal, id, bookings, dateI, a, selected, monthsL){
+function calendar(avcal, id, bookings, dateI, a, selected, monthsL, clickable){
   const month = monthsL[dateI.getMonth()]
   const prevId = getPrev(dateI).toString()
   const nextId = getNext(dateI).toString()
@@ -261,6 +260,8 @@ function calendar(avcal, id, bookings, dateI, a, selected, monthsL){
     document.getElementById(`days${id}`).insertAdjacentHTML('beforeend', day)
   }
   const array = document.getElementsByClassName(`free${id}`);
+
+  console.log(clickable);
   if(clickable == 1) {
     const array = document.getElementsByClassName(`free${id}`);
     for (let index = 0; index < array.length; index += 1) {

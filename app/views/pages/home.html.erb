@@ -49,7 +49,7 @@
 <div class="rentings cards">
    <% @rentings_old.each do |booking| %>
    <div class="card-trip">
-     <div class="card-img" style="background-image: url(
+     <div class="card-img no-color" style="background-image: url(
           <% if booking.organ.user.photo.attached? %>
             <%= cl_image_path organ.user.photo.key, height: 300, width: 400, crop: :fill %>
           <%else%>
@@ -62,7 +62,7 @@
           <h2>Renters name: <%= booking.user.fullname  %></h2>
             <p>Owners name: <%= booking.organ.user.fullname  %></p>
             <p>Description: <%= booking.organ.description  %></p>
-            <p><%= booking.organ.available == true ? "Available" : "Not avaiblabe for the moment" %></p>
+            <p>Dates: <%="'#{booking.date_start.year}, #{booking.date_start.month}, #{booking.date_start.mday}'"%> to <%="'#{booking.date_start.year}, #{booking.date_end.month}, #{booking.date_end.mday}'"%></p>
         </div>
         <h2 class="card-trip-pricing"><%= booking.organ.price %>€ /day</h2>
         <% if booking.organ.organ_type == 'heart' %>
@@ -82,7 +82,7 @@
 <h3>My current bookings: </h3>
 <div class="bookings cards">
   <% @bookings.each do |booking| %>
-   <div class="card-trip">
+   <div class="card-trip my-org no-color">
      <div class="card-img" style="background-image: url(
           <% if booking.organ.user.photo.attached? %>
             <%= cl_image_path organ.user.photo.key, height: 300, width: 400, crop: :fill %>
@@ -96,7 +96,7 @@
           <h2>Renters name: <%= booking.user.fullname  %></h2>
             <p>Owners name: <%= booking.organ.user.fullname  %></p>
             <p>Description: <%= booking.organ.description  %></p>
-            <p><%= booking.organ.available == true ? "Available" : "Not avaiblabe for the moment" %></p>
+             <p>Dates: <%="'#{booking.date_start.year}, #{booking.date_start.month}, #{booking.date_start.mday}'"%> to <%="'#{booking.date_start.year}, #{booking.date_end.month}, #{booking.date_end.mday}'"%></p>
         </div>
         <h2 class="card-trip-pricing"><%= booking.organ.price %>€ /day</h2>
         <% if booking.organ.organ_type == 'heart' %>

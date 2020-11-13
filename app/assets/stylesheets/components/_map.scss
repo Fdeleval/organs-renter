@@ -38,8 +38,17 @@
 }
 
 .mapboxgl-popup-content:hover .learn-more {
-  opacity: 0.7 !important;
+  z-index:1000;
+  opacity: 0.9 !important;
   &:hover {
     opacity: 1 !important;
   }
+}
+
+.mapboxgl-popup-close-button {
+  position: absolute;
+  right: 5px;
+  top: 13px;
+  color: white;
+  opacity: 0.9 !important;
 }

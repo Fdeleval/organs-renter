@@ -2,8 +2,9 @@
 .month {
   padding: 25px 25px;
   width: 100%;
-  background: #1abc9c;
+  background: #0c0c0c;
   text-align: center;
+  border-radius: 10px 10px 0 0;
 }
 
 /* Month list */
@@ -24,7 +25,8 @@
 .month .prev {
   box-shadow: none;
   border: none;
-  background-color: grey;
+  color: white;
+  background-color: #0c0c0c;
   float: left;
   padding-top: 10px;
 }
@@ -33,7 +35,8 @@
 .month .next {
   box-shadow: none;
   border: none;
-  background-color: grey;
+  color: white;
+  background-color: #0c0c0c;
   float: right;
   padding-top: 10px;
 }
@@ -44,12 +47,14 @@
   margin: 0;
   padding: 10px 0;
   background-color:#ddd;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
 }
 
 .weekdays li {
   display: inline;
-  padding: 10px;
   width: 13.6%;
+  padding-left: 5.5%;
   color: #666;
   text-align: center;
 }
@@ -57,9 +62,13 @@
 /* Days (1-31) */
 .days {
   width: 100%;
-  padding: 10px 0;
+  padding: 0 0 5px 10px;
   background: #eee;
   margin: 0;
+  border-radius: 0 0 10px 10px;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
 }
 
 .days li {
@@ -70,17 +79,6 @@
   margin-bottom: 5px;
   font-size:12px;
   color: #777;
-}
-
-/* Highlight the "current" day */
-.days .active {
-  background-color: darkred;
-  color: white !important
-}
-
-.days .active_un {
-  background-color: lightcoral;
-  color: white !important
 }
 
 .calbox {
@@ -103,16 +101,25 @@
   display: none;
 }
 
+#calcall {
+  display: none;
+}
 
 .days .presentBooking {
-  background-color: lightskyblue;
+  background-color: rgb(65, 160, 184);
 }
 
 .days .activeP {
-  background-color: blue;
+  background-color: rgb(39, 55, 124);
   color: white;
 }
 
-#calcall {
-  display: none;
+.days .active {
+  background-color: rgb(161, 33, 33);
+  color: white !important
+}
+
+.days .active_un {
+  background-color: rgb(212, 135, 116);
+  color: white !important
 }

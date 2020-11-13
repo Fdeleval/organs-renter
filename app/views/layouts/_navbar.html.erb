@@ -1,7 +1,7 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
       <%= link_to "Rent an organ", "/", class: "navbar-brand" %>
       <%= link_to "Dashboard", user_root_path, class: "navbar-brand" %>
-  
+
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -28,7 +28,7 @@
                 <%= cl_image_tag("person-placeholder.jpg", class: 'avatar dropdown-toggle', id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false, :effect=>"grayscale")%>
               <%end%>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              
+
                 <%= link_to "Sign Out", destroy_user_session_path, method: 'delete', class: "dropdown-item" %>
                 <%= link_to "Delete Account", user_registration_path, method: 'delete', class: "dropdown-item" %>
                 <%= link_to "Change password", edit_user_registration_path, class: "dropdown-item" %>

@@ -20,7 +20,7 @@
       <a href="/organs/<%= booking.organ.id%>/bookings/<%= booking.id%>/edit" class='btn btn-flat book-now' >View this booking</a>
      <div class="card-img" style="background-image: url(
           <% if booking.organ.user.photo.attached? %>
-            <%= cl_image_path booking.organ.user.photo.key, height: 300, width: 400, crop: :fill %>
+            <%= cl_image_path booking.user.photo.key, height: 300, width: 400, crop: :fill %>
           <%else%>
             <%='https://res.cloudinary.com/rommcb/image/upload/v1605186478/person-placeholder.jpg' %>
           <% end %>
